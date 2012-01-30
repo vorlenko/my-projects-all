@@ -1,7 +1,7 @@
-package game;
+package com.game;
 
 import com.badlogic.gdx.backends.jogl.JoglApplication;
-import game.Game;
+import com.game.Game;
 
 public class GameDesktop {
 	 public static void main (String[] argv) {
