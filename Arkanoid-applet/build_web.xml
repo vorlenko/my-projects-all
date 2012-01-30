@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<project basedir="." default="main" name="Arkanoid-applet">
+
+	<target name="init">
+		<ant antfile="build.xml" />
+    	<delete dir="web" />
+    	<mkdir dir="web" />
+    </target>
+		
+    <target name="makejar" depends="init">
+    	<jar  destfile="web\GameApplet.jar">
+    		<fileset dir="bin" />  
+            <fileset dir="..\Arkanoid" includes="data/"/>  
+    	</jar>
+    </target>
+
+    <target name="copylibs" depends="init">
+    	<copy todir="web">
+    		<fileset dir="libs" includes="*.jar"/> 
+    	</copy>
+    	<copy file="..\Arkanoid\libs\gdx.jar" todir="web"/>
+
+    </target>
+    
+    <target name="copyhtml" depends="init">
+    	<copy file="GameApplet.html" todir="web"/>
+    </target>
+
+ 	
+    <target name="sign_all" depends="copylibs,makejar,generate_keystore">
+    	<apply executable="jarsigner">
+    		<arg value="-keystore"/>
+    		<arg value=".keystore"/>
+    		<arg value="-storepass"/>
+    		<arg value="gdxpassword"/>
+    		<srcfile/>
+    		<arg value="gdxkey"/>
+        	<fileset dir="web" includes="*.jar"/>
+    	</apply>
+    </target>
+
+    <target name="generate_keystore">
+		<exec executable="keytool">
+			<arg value="-genkey"/>
+			<arg value="-alias"/>
+    		<arg value="gdxkey"/>
+    		<arg value="-storepass"/>
+    		<arg value="gdxpassword"/>
+			<arg value="-keystore"/>
+			<arg value=".keystore"/>
+		</exec>	
+    </target>
+	
+	<target name="main" depends="init,makejar,copyhtml,copylibs,generate_keystore,sign_all" />
+</project>
