@@ -2,9 +2,9 @@ package com.game;
 
 
 
-import game.Game;
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
+import com.game.Game;
 
 
 import android.os.Bundle;
