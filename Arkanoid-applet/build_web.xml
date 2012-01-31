@@ -5,10 +5,17 @@
 	<target name="init">
 		<ant antfile="build.xml" />
     	<delete dir="web" />
+    	<delete dir="bin\web" />
     	<mkdir dir="web" />
+	</target>
+
+    <target name="copybins" depends="init">
+    	<copy todir="">
+    		<fileset dir="..\Arkanoid" includes="bin/"/> 
+    	</copy>
     </target>
-		
-    <target name="makejar" depends="init">
+	
+    <target name="makejar" depends="init,copybins">
     	<jar  destfile="web\GameApplet.jar">
     		<fileset dir="bin" />  
             <fileset dir="..\Arkanoid" includes="data/"/>  
@@ -20,37 +27,47 @@
     		<fileset dir="libs" includes="*.jar"/> 
     	</copy>
     	<copy file="..\Arkanoid\libs\gdx.jar" todir="web"/>
-
     </target>
     
     <target name="copyhtml" depends="init">
     	<copy file="GameApplet.html" todir="web"/>
     </target>
 
- 	
-    <target name="sign_all" depends="copylibs,makejar,generate_keystore">
-    	<apply executable="jarsigner">
-    		<arg value="-keystore"/>
-    		<arg value=".keystore"/>
-    		<arg value="-storepass"/>
-    		<arg value="gdxpassword"/>
-    		<srcfile/>
-    		<arg value="gdxkey"/>
-        	<fileset dir="web" includes="*.jar"/>
-    	</apply>
+    <target name="moveWebToBin" depends="sign_all">
+    	<mkdir dir="bin\web"/>
+		<move todir="bin\web">
+    		<fileset dir="web"/>
+  		</move>
     </target>
-
-    <target name="generate_keystore">
-		<exec executable="keytool">
+    
+	<target name="generate_keystore" depends="copylibs,makejar">
+		<exec
+			executable="keytool">
+			<arg value="-v" />
 			<arg value="-genkey"/>
 			<arg value="-alias"/>
-    		<arg value="gdxkey"/>
-    		<arg value="-storepass"/>
-    		<arg value="gdxpassword"/>
+			<arg value="gdxkey" />
+			<arg value="-dname" />
+			<arg value="CN=SysApps, OU=MBS, O=NomuraSecurities, L=New York, ST=New York,C=US" />
 			<arg value="-keystore"/>
-			<arg value=".keystore"/>
-		</exec>	
+			<arg value="web/.keystore"/>
+			<arg value="-storepass"/>
+			<arg value="gdxpassword"/>
+		</exec>
+	</target>
+
+	<target name="sign_all" depends="copylibs,makejar,generate_keystore">
+		<signjar destDir="web"
+		    alias="gdxkey"
+			keystore="web\.keystore"
+			storepass="gdxpassword"
+		    preservelastmodified="true">
+			<path>
+		    	<fileset dir="web" includes="*.jar" />
+			</path>
+			<flattenmapper />
+		</signjar>
     </target>
-	
-	<target name="main" depends="init,makejar,copyhtml,copylibs,generate_keystore,sign_all" />
+
+	<target name="main" depends="init,makejar,copyhtml,copylibs,generate_keystore,sign_all,moveWebToBin" />
 </project>
