@@ -1,9 +1,9 @@
 package com.game;
 
 
-import game.Game;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
+import com.game.Game;
 
 public class GameDesktop {
 	 public static void main (String[] argv) {
