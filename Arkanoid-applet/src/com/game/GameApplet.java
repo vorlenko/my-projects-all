@@ -1,7 +1,7 @@
 package com.game;
 
-import game.Game;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplet;
+import com.game.Game;
 
 
 public class GameApplet extends  LwjglApplet{
