@@ -2,55 +2,74 @@ package com.game;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL10;
-import com.badlogic.gdx.graphics.Mesh;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.VertexAttribute;
-import com.badlogic.gdx.graphics.VertexAttributes.Usage;
+import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.Texture;
+
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+
 
 
 
 public class Game implements ApplicationListener {
+
 	private OrthographicCamera camera;
-	private Mesh squareMesh;
+	private TextureRegion region;
+	private SpriteBatch batch;
+	private Pixmap pixmap;
+	private Texture texture;
 	
 	public void create() {
-	      if (squareMesh == null) {
-	            squareMesh = new Mesh(true, 4, 4, 
-	                    new VertexAttribute(Usage.Position, 3, "a_position"),
-	                    new VertexAttribute(Usage.ColorPacked, 4, "a_color"));
-
-	            squareMesh.setVertices(new float[] {
-	                    -1f, -1f, 0, Color.toFloatBits(128, 0, 0, 255),
-	                    1f, -1f, 0, Color.toFloatBits(192, 0, 0, 255),
-	                    -1f, 1f, 0, Color.toFloatBits(192, 0, 0, 255),
-	                    1f, 1f, 0, Color.toFloatBits(255, 0, 0, 255) });   
-	            squareMesh.setIndices(new short[] { 0, 1, 2, 3});
-	        }
-
+		batch=new SpriteBatch();
 	}
 
-	public void dispose() {}
-
-	public void pause() {}
 
 	public void render() {
-        camera.update();
-        camera.apply(Gdx.gl10);
+		GL10 gl = Gdx.graphics.getGL10();
+		gl.glClearColor(0.0f, 0.0f, 0.0f, 1);
+		gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
         
-        Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
-        squareMesh.render(GL10.GL_TRIANGLE_STRIP, 0, 4);
+        camera.update();
+        camera.apply(gl);
+
+        batch.begin();
+        pixmap.setColor(1.0f, 1.0f, 1.0f, 1.0f);
+        pixmap.drawRectangle(10, 10, width-20,height-20);
+        pixmap.drawRectangle(12, 12, width-24,height-24);
+
+
+        texture.draw(pixmap, 0, 0);
+        batch.draw (region, 0, 0);
+        batch.end();
 
 	}
 
-	int width;
-	int height;
+	private int width;
+	private int height;
 	public void resize(int width, int height) {
-        float aspectRatio = (float) width / (float) height;
-        camera = new OrthographicCamera(2f * aspectRatio, 2f);
+		Gdx.app.log("resize", "w="+width+" h="+height);
+		this.width=width;
+		this.height=height;
+        pixmap=new Pixmap(powerOf2(width),powerOf2(height), Pixmap.Format.RGBA8888);
+        texture = new Texture(pixmap);
+		region = new TextureRegion(texture, 0, 0, width, height);
+		camera = new OrthographicCamera(width, height);
+		camera.position.set(width/2,height/2, 0);
 	}
 
+	public int powerOf2(int size){
+		int p=1;
+		while(p<size){
+			p=p*2;
+		}
+		return(p);
+	}
+	
+	
+	
 	public void resume() {}
-
+	public void dispose() {}
+	public void pause() {}
 }
