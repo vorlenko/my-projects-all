@@ -25,30 +25,35 @@ public class Game implements ApplicationListener {
 
 	public void create() {
 		batch=new SpriteBatch();
+
 		
 	}
 
 	float x=0;
 	public void render() {
+		GL10 gl = Gdx.graphics.getGL10();
+		gl.glClearColor(0.0f, 0.0f, 0.0f, 1);
+		gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+
+		camera.update();
+        camera.apply(gl);
+
+        pixmap.setColor(0.0f, 0.0f, 0.0f, 1.0f);
+        pixmap.fillRectangle((int) x, (int) x, 10,10);
+		
 		float t=Gdx.graphics.getDeltaTime();
-		x=x+t*100;
+		x=x+t*300;
 		if(x>300){x=0;};
 		
 		//Gdx.app.log("t", "t="+t);
 		
-        pixmap.setColor(0f, 0f, 0f, 1.0f);
-		pixmap.fill();
         pixmap.setColor(1.0f, 1.0f, 1.0f, 1.0f);
         pixmap.drawRectangle(10, 10, width-20,height-20);
         pixmap.drawRectangle(12, 12, width-24,height-24);
 
-        pixmap.drawRectangle((int) x, (int) x, 10,10);
+        pixmap.fillRectangle((int) x, (int) x, 10,10);
 		
-		GL10 gl = Gdx.graphics.getGL10();
-		gl.glClearColor(0.0f, 0.0f, 0.0f, 1);
-		gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
-        camera.update();
-        camera.apply(gl);
+
         batch.begin();
         texture.draw(pixmap, 0, 0);
         batch.draw (region, 0, 0);
