@@ -28,10 +28,13 @@ public class Game implements ApplicationListener {
 		
 	}
 
-	int x=0;
+	float x=0;
 	public void render() {
-		x++;
-		if(x>100){x=0;};
+		float t=Gdx.graphics.getDeltaTime();
+		x=x+t*100;
+		if(x>300){x=0;};
+		
+		//Gdx.app.log("t", "t="+t);
 		
         pixmap.setColor(0f, 0f, 0f, 1.0f);
 		pixmap.fill();
@@ -39,7 +42,7 @@ public class Game implements ApplicationListener {
         pixmap.drawRectangle(10, 10, width-20,height-20);
         pixmap.drawRectangle(12, 12, width-24,height-24);
 
-        pixmap.drawRectangle(x, x, 10,10);
+        pixmap.drawRectangle((int) x, (int) x, 10,10);
 		
 		GL10 gl = Gdx.graphics.getGL10();
 		gl.glClearColor(0.0f, 0.0f, 0.0f, 1);
