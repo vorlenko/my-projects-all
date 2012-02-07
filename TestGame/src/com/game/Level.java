@@ -16,4 +16,9 @@ public class Level {
 		}
 	    hero.onDraw(canvas);
 	}
+
+	public void action() {
+		hero.action();
+	}
+	
 }
