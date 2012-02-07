@@ -13,7 +13,7 @@ public class Level {
 	public void onDraw(Canvas canvas) {
 		for (Bound bound : bounds) {
 		    bound.onDraw(canvas);
-		    hero.onDraw(canvas);
 		}
+	    hero.onDraw(canvas);
 	}
 }
