@@ -9,10 +9,11 @@ import com.google.gson.Gson;
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 
 public class MainActivity extends Activity {
 
-	Game game;
+	Game game = new Game();
 	GameThread GT;
 	RendererThread RT;
 	View GSV;
@@ -51,6 +52,18 @@ public class MainActivity extends Activity {
 		super.onResume();
 		GT.resume();
 		RT.resume();
+	}
+
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		Game.onKey(keyCode, event);
+		return super.onKeyDown(keyCode, event);
+	}
+
+	@Override
+	public boolean onKeyUp(int keyCode, KeyEvent event) {
+		Game.onKey(keyCode, event);
+		return super.onKeyDown(keyCode, event);
 	}
 
 	
