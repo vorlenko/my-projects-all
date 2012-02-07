@@ -5,14 +5,17 @@ import android.graphics.Color;
 import android.graphics.Paint;
 
 public class Bound {
-	Point begin;
-	Point end;
+	float x1;
+	float y1;
+	float x2;
+	float y2;
+	
 	
 	
 	transient Paint paint;
 	public void onDraw(Canvas canvas) {
 		paint = new Paint();
 		paint.setColor(Color.WHITE);
-		canvas.drawLine(begin.x, begin.y, end.x, end.y, paint);
+		canvas.drawLine(x1, y1, x2, y2, paint);
 	}
 }
