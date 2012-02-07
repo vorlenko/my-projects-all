@@ -10,6 +10,7 @@ public class Hero {
 	public void onDraw(Canvas canvas) {
 		Paint paint = new Paint();
 		paint.setColor(Color.RED);
+		canvas.drawRect(x-20, y-20, 40, 40, paint);
 	}
 	
 }
