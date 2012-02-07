@@ -2,38 +2,41 @@ package com.game;
 
 import android.graphics.Canvas;
 import android.util.Log;
+import android.view.SurfaceHolder;
 
 public class RendererThread  implements Runnable{
 	Thread thread; 
 	boolean active=false; 
 	View GSV;
-	
-	
-	public RendererThread(View gsv) {
+	Game game;
+
+	public RendererThread(View gsv,Game game) {
 		this.GSV=gsv;
+		this.game=game;
 	}
-
-	public RendererThread(){
-		Log.d("RendererThread","Cunstructor call must be with GameSurfaceView parameter!");
-	}
-
-
 
 	private long FPS=0;
+	
+	private SurfaceHolder holder;
 	
 	@Override
 	public void run() {
 		while(active == true){
 			
-			if(GSV.holder.getSurface().isValid()){
-
-				
-				// put frame
-				Canvas c = GSV.holder.lockCanvas();
-				c.drawARGB(255, (int) (255*Math.random()), 150, 10);
-				GSV.holder.unlockCanvasAndPost(c);
-				
-				FPS++;
+			holder=GSV.holder;
+			
+			if(holder.getSurface().isValid()){
+				Canvas canvas = null;
+				try{			
+					GSV.holder.lockCanvas();
+					synchronized(holder){
+						// put frame
+						game.onDraw(canvas);
+						FPS++;
+					}
+				} finally {
+					if(canvas != null) holder.unlockCanvasAndPost(canvas); 
+				}
 			}
 			
 
