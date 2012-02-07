@@ -6,12 +6,6 @@ public class GameThread implements Runnable{
 	Thread thread; 
 	boolean active=false; 
 
-	public GameThread(){
-		thread=new Thread(this,"GameThread");
-		thread.start();
-		active = true;
-	}
-	
 	@Override
 	public void run() {
 		while(active == true){
@@ -60,6 +54,8 @@ public class GameThread implements Runnable{
 	}
 	
 	public void resume(){
+		thread=new Thread(this,"GameThread");
+		thread.start();
 		active = true;
 	}
 

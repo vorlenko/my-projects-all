@@ -11,9 +11,6 @@ public class RendererThread  implements Runnable{
 	
 	public RendererThread(View gsv) {
 		this.GSV=gsv;
-		thread=new Thread(this,"RendererThread");
-		thread.start();
-		active = true;
 	}
 
 	public RendererThread(){
@@ -72,6 +69,8 @@ public class RendererThread  implements Runnable{
 	}
 
 	public void resume(){
+		thread=new Thread(this,"RendererThread");
+		thread.start();
 		active = true;
 	}
 
