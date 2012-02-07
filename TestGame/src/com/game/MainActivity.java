@@ -33,7 +33,7 @@ public class MainActivity extends Activity {
 		}
 		
         GSV=new View(this);
-        GT=new GameThread();
+        GT=new GameThread(game);
         RT=new RendererThread(GSV, game);
         setContentView(GSV);
     }
@@ -56,14 +56,14 @@ public class MainActivity extends Activity {
 
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		Game.onKey(keyCode, event);
+		Game.onKeyDown(keyCode, event);
 		return super.onKeyDown(keyCode, event);
 	}
 
 	@Override
 	public boolean onKeyUp(int keyCode, KeyEvent event) {
-		Game.onKey(keyCode, event);
-		return super.onKeyDown(keyCode, event);
+		Game.onKeyUp(keyCode, event);
+		return super.onKeyUp(keyCode, event);
 	}
 
 	

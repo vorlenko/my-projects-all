@@ -5,18 +5,28 @@ import android.util.Log;
 public class GameThread implements Runnable{
 	Thread thread; 
 	boolean active=false; 
+	Game game;
+	
+	public GameThread(Game game) {
+		this.game=game;
+	}
 
 	@Override
 	public void run() {
 		while(active == true){
 			// perform game engine action
+			
+			
+			
+			
+			// game action every 10 milliseconds =)
 			if(previousTimeMillis==0){
 				previousTimeMillis=System.currentTimeMillis();
 			}else{
 				long currentTimeMillis=System.currentTimeMillis();
-				if(currentTimeMillis>previousTimeMillis+1000){
+				if(currentTimeMillis>previousTimeMillis+10){
 					previousTimeMillis=currentTimeMillis;
-					Log.d("GameThread","CurrentTime="+currentTimeMillis);
+					game.action();
 				}
 			}
 			
