@@ -27,8 +27,8 @@ public class RendererThread  implements Runnable{
 			
 			if(holder.getSurface().isValid()){
 				Canvas canvas = null;
-				try{			
-					GSV.holder.lockCanvas();
+				try{
+					canvas = holder.lockCanvas();
 					synchronized(holder){
 						// put frame
 						game.onDraw(canvas);
