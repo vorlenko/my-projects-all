@@ -1,5 +1,6 @@
 package com.game;
 
+
 import android.util.Log;
 
 public class GameThread implements Runnable{
@@ -7,26 +8,29 @@ public class GameThread implements Runnable{
 	boolean active=false; 
 	Game game;
 	
+	
 	public GameThread(Game game) {
 		this.game=game;
+		game.onStart();
 	}
 
+	public int targetFPS = 100;
+	public float timeStep = (1000 / targetFPS);
 
 	public void run() {
 		while(active == true){
 			// perform game engine action
 			
-			
-			
+		
 			
 			// game action every 10 milliseconds =)
 			if(previousTimeMillis==0){
 				previousTimeMillis=System.currentTimeMillis();
 			}else{
 				long currentTimeMillis=System.currentTimeMillis();
-				if(currentTimeMillis>previousTimeMillis+10){
+				if(currentTimeMillis>previousTimeMillis+timeStep){
 					previousTimeMillis=currentTimeMillis;
-					game.action();
+					game.action(timeStep);
 				}
 			}
 			

@@ -2,6 +2,9 @@ package com.game;
 
 import java.util.ArrayList;
 
+import org.jbox2d.common.Vec2;
+import org.jbox2d.dynamics.World;
+
 import android.graphics.Canvas;
 //import android.util.Log;
 import android.view.KeyEvent;
@@ -19,9 +22,16 @@ public class Game {
 		levels.get(currentLevel).onDraw(canvas);
 	}
 
-	public void action(){
-		//Log.d("keys","up="+upKeyPressed+" down="+downKeyPressed+" left="+leftKeyPressed+" right="+rightKeyPressed);
+	World world;
+	public void onStart(){
+		Vec2 gravity = new Vec2(0.0f, -10.0f);
+		boolean doSleep = true;
+		world = new World(gravity, doSleep);
+	}
+	
 
+	public void action(float timeStep){
+		world.step(timeStep, 6, 2);
 		
 		levels.get(currentLevel).hero.move(upKeyPressed,
 										   downKeyPressed,
