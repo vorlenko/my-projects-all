@@ -27,6 +27,7 @@ public class Hero {
         CircleDef circle = new CircleDef();  
         circle.radius = (float) 20.0;  
         circle.density = (float) 4.0; 
+        circle.restitution=0.5f;
         
         body.createShape(circle);
         body.setMassFromShapes();
@@ -34,34 +35,33 @@ public class Hero {
 
 	}
 	
-	
+	Vec2 position;
+	Paint paint = new Paint();
 	public void onDraw(Canvas canvas) {
-		Vec2 position = body.getPosition();
-		int x=(int) position.x;
-		int y=(int) position.y;
-		
-		
-		Paint paint = new Paint();
+		position = body.getPosition();
+				
 		paint.setColor(Color.RED);
-		canvas.drawRect(x-20, y-20, x+20, y+20, paint);
+		canvas.drawCircle(10+position.x, position.y+10, 20, paint);//drawRect(x-20, y-20, x+20, y+20, paint);
 	}
 
 
 
 
 
+	float ax=0;
+	float ay=0;
 	public void move(boolean up, boolean down,
 			boolean left, boolean right) {
-		float ax=0;
-		float ay=0;
-		if(up)   {ay=ay-8f;}
-		if(down) {ay=ay+8f;}
-		if(left) {ax=ax-8f;}
-		if(right){ax=ax+8f;}
+		ax=0;
+		ay=0;
+		if(up)   {ay=ay-100f;}
+		if(down) {ay=ay+100f;}
+		if(left) {ax=ax-100f;}
+		if(right){ax=ax+100f;}
 		
 		Vec2 v=new Vec2(ax,ay);
-		body.applyForce(v, new Vec2(0,0));
-		
+		//body.applyForce(v, new Vec2(0,0));
+		body.applyImpulse(v, new Vec2(0,0));
 		Vec2 p=body.getPosition();
 		
 		if(v.length()!=0){
