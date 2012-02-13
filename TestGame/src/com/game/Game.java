@@ -3,6 +3,7 @@ package com.game;
 import java.util.ArrayList;
 
 import org.jbox2d.common.Vec2;
+import org.jbox2d.dynamics.BodyType;
 import org.jbox2d.dynamics.World;
 
 import android.graphics.Canvas;
@@ -15,6 +16,26 @@ public class Game {
 	
 	
 	transient int currentLevel=0;
+
+	World world;
+	public void onStart(){
+		Vec2 gravity = new Vec2(0.0f, -10.0f);
+		boolean doSleep = true;
+		world = new World(gravity, doSleep);
+		/*
+		
+		final Shape ground = new Rectangle(0, CAMERA_HEIGHT - 2, CAMERA_WIDTH, 2);
+        final Shape roof = new Rectangle(0, 0, CAMERA_WIDTH, 2);
+        final Shape left = new Rectangle(0, 0, 2, CAMERA_HEIGHT);
+        final Shape right = new Rectangle(CAMERA_WIDTH - 2, 0, 2, CAMERA_HEIGHT);
+        final FixtureDef wallFixtureDef = PhysicsFactory.createFixtureDef(0, 0.5f, 0.5f);
+        
+        PhysicsFactory.createBoxBody(this, ground, BodyType.STATIC, wallFixtureDef);
+        PhysicsFactory.createBoxBody(this, roof, BodyType.STATIC, wallFixtureDef);
+        PhysicsFactory.createBoxBody(this, left, BodyType.STATIC, wallFixtureDef);
+        PhysicsFactory.createBoxBody(this, right, BodyType.STATIC, wallFixtureDef);
+        */
+	}
 	
 	public void onDraw(Canvas canvas){
 
@@ -22,12 +43,6 @@ public class Game {
 		levels.get(currentLevel).onDraw(canvas);
 	}
 
-	World world;
-	public void onStart(){
-		Vec2 gravity = new Vec2(0.0f, -10.0f);
-		boolean doSleep = true;
-		world = new World(gravity, doSleep);
-	}
 	
 
 	public void action(float timeStep){
