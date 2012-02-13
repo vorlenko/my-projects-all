@@ -19,7 +19,6 @@ public class RendererThread  implements Runnable{
 	
 	private SurfaceHolder holder;
 	
-	@Override
 	public void run() {
 		while(active == true){
 			

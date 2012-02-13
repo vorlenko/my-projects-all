@@ -11,7 +11,7 @@ public class GameThread implements Runnable{
 		this.game=game;
 	}
 
-	@Override
+
 	public void run() {
 		while(active == true){
 			// perform game engine action
