@@ -14,23 +14,18 @@ public class GameThread implements Runnable{
 		game.onStart();
 	}
 
-	public int targetFPS = 100;
-	public float timeStep = (1000 / targetFPS);
-
 	public void run() {
 		while(active == true){
-			// perform game engine action
 			
 		
-			
 			// game action every 10 milliseconds =)
 			if(previousTimeMillis==0){
 				previousTimeMillis=System.currentTimeMillis();
 			}else{
 				long currentTimeMillis=System.currentTimeMillis();
-				if(currentTimeMillis>previousTimeMillis+timeStep){
+				if(currentTimeMillis>previousTimeMillis+10){
 					previousTimeMillis=currentTimeMillis;
-					game.action(timeStep);
+					game.action(10);
 				}
 			}
 			
