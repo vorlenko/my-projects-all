@@ -1,6 +1,9 @@
 {
     "levels":[
         {
+        "height"=300,
+        "width"=300,
+        
             "bounds":[
                 {
                     "x1"=10,
