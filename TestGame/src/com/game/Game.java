@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 
 import android.graphics.Canvas;
+import android.util.Log;
 import android.view.KeyEvent;
 
 public class Game {
@@ -34,6 +35,8 @@ public class Game {
 										   downKeyPressed,
 										   leftKeyPressed,
 										   rightKeyPressed);
+										   
+		
 		levels.get(currentLevel).action(timeStep);
 	}
 
