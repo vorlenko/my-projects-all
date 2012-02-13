@@ -19,13 +19,23 @@ public class Level {
 	
 	Hero hero;
 		
+	float width;
+	float height;
+	
 	transient World world;
 	
 	public void onStart(){
+		PolygonDef groundShapeDef;
+		
 		// Step 1: Create Physics World Boundaries 
 		AABB worldAABB = new AABB();  
-        worldAABB.lowerBound.set(new Vec2((float) -300.0, (float) -300.0));  
-        worldAABB.upperBound.set(new Vec2((float) 300.0, (float) 300.0)); 
+		
+		Vec2 min = new Vec2(-10, -10);
+		Vec2 max = new Vec2(width +10, height+10);
+		
+		worldAABB.lowerBound.set(min);
+		worldAABB.upperBound.set(max);
+		
         
         //	Step 2: Create Physics World with Gravity  
 		Vec2 gravity = new Vec2(0.0f, 0.0f);
@@ -33,14 +43,35 @@ public class Level {
 		world = new World(worldAABB, gravity, doSleep);
 		
 		
-		// Step 3: Create Ground Box  
-		BodyDef groundBodyDef = new BodyDef(); 
-        groundBodyDef.position.set(new Vec2((float) 10.0, (float) 10.0));  
-        Body groundBody = world.createBody(groundBodyDef);  
-        PolygonDef groundShapeDef = new PolygonDef();  
-        groundShapeDef.setAsBox((float) 150.0, (float) 150.0);  
-        groundBody.createShape(groundShapeDef);
-        
+		//Create Ground Box :
+		BodyDef bodyDef = new BodyDef();
+		bodyDef.position.set(new Vec2((float) 0.0, (float) -10.0));
+		Body groundBody = world.createBody(bodyDef);
+		groundShapeDef = new PolygonDef();
+		groundShapeDef.setAsBox((float) width, (float) 10);
+		groundBody.createShape(groundShapeDef);
+		// up :
+		bodyDef = new BodyDef();
+		bodyDef.position.set(new Vec2((float) 0.0, (float) (height+10.0) ));
+		groundBody = world.createBody(bodyDef);
+		groundShapeDef = new PolygonDef();
+		groundShapeDef.setAsBox((float) width, (float) 10);
+		groundBody.createShape(groundShapeDef);
+		// left :
+		bodyDef = new BodyDef();
+		bodyDef.position.set(new Vec2((float) -10, (float) 0.0 ));
+		groundBody = world.createBody(bodyDef);
+		groundShapeDef = new PolygonDef();
+		groundShapeDef.setAsBox((float)10, (float) height);
+		groundBody.createShape(groundShapeDef);
+		// right :
+		bodyDef = new BodyDef();
+		bodyDef.position.set(new Vec2((float) width+10, (float) 0.0 ));
+		groundBody = world.createBody(bodyDef);
+		groundShapeDef = new PolygonDef();
+		groundShapeDef.setAsBox((float)10, (float) height);
+		groundBody.createShape(groundShapeDef);
+			
 		// Step 4: Create dynamic body  
         hero.onStart(world);
 	}
