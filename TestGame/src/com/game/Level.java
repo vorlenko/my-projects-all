@@ -11,7 +11,10 @@ import org.jbox2d.dynamics.World;
 
 import android.graphics.Canvas;
 
+
 public class Level {
+	public static final float PIXEL2METER_RATIO = 10;
+
 
 	ArrayList<Edge> edges;
 	
@@ -21,7 +24,7 @@ public class Level {
 	
 	public void onStart(){
 		
-		Vec2 gravity = new Vec2(0.0f, 0.0f);
+		Vec2 gravity = new Vec2(0.0f, -1.0f);
 		boolean doSleep = true;
 		world = new World(gravity, doSleep);
 		
@@ -37,7 +40,7 @@ public class Level {
 		sd.restitution =  0.4f;
 		
 		for(Edge edge : edges) {
-			shape.setAsEdge(new Vec2(edge.x1, edge.y1), new Vec2(edge.x2, edge.y2));
+			shape.setAsEdge(new Vec2(edge.x1/PIXEL2METER_RATIO, edge.y1/PIXEL2METER_RATIO), new Vec2(edge.x2/PIXEL2METER_RATIO, edge.y2/PIXEL2METER_RATIO));
 			ground.createFixture(sd);
 		}
 			
@@ -54,7 +57,7 @@ public class Level {
 	}
 
 	public void action(float timeStep) {
-		world.step(timeStep, 6, 2);
+		world.step(timeStep, 6, 3);
 
 		//hero.action();
 	}
