@@ -1,6 +1,7 @@
 package com.game;
 
 import org.jbox2d.collision.shapes.CircleShape;
+import org.jbox2d.collision.shapes.MassData;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.BodyDef;
@@ -13,7 +14,9 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.Log;
 
+
 public class Hero {
+	public static final float PIXEL2METER_RATIO = 10;
 	float x;
 	float y;
 	
@@ -22,7 +25,7 @@ public class Hero {
 	public void onStart(World world){
 		
 		CircleShape shape = new CircleShape();
-		shape.m_radius = 20.0f;
+		shape.m_radius = 20.0f/PIXEL2METER_RATIO;
 
 		FixtureDef fd = new FixtureDef();
 		fd.shape = shape;
@@ -30,9 +33,10 @@ public class Hero {
 
 		BodyDef bd = new BodyDef();
 		bd.type = BodyType.DYNAMIC;
-		bd.position.set(x,y);
+		bd.position.set(x/PIXEL2METER_RATIO,y/PIXEL2METER_RATIO);
 		body = world.createBody(bd);
 		body.createFixture(fd);
+		body.setMassData(new MassData());
 	}
 	
 	public void onDraw(Canvas canvas) {
@@ -41,7 +45,7 @@ public class Hero {
 		Vec2 position = body.getPosition();
 				
 		paint.setColor(Color.RED);
-		canvas.drawCircle(position.x, position.y, 20, paint);
+		canvas.drawCircle(position.x*PIXEL2METER_RATIO, position.y*PIXEL2METER_RATIO, 20, paint);
 	}
 
 
@@ -52,19 +56,16 @@ public class Hero {
 			boolean left, boolean right) {
 		float ax=0;
 		float ay=0;
-		if(up)   {ay=ay-100f;}
-		if(down) {ay=ay+100f;}
-		if(left) {ax=ax-100f;}
-		if(right){ax=ax+100f;}
+		if(up)   {ay=ay-100f/PIXEL2METER_RATIO;}
+		if(down) {ay=ay+100f/PIXEL2METER_RATIO;}
+		if(left) {ax=ax-100f/PIXEL2METER_RATIO;}
+		if(right){ax=ax+100f/PIXEL2METER_RATIO;}
 		
 		v.set(ax, ay);
-		body.setLinearVelocity(v);
-		Vec2 p=body.getPosition();
-		
-		if(v.length()!=0){
-			Log.d("move","vx="+v.x+" vy="+v.y+"x="+p.x+" y="+p.y);
-			
+		if(v.length()>0){
+			body.applyLinearImpulse(v, new Vec2(0,0));
 		}
+		//Vec2 p=body.getPosition();
 	}
 
 	public void action(){}
