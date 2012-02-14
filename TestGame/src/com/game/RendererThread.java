@@ -9,7 +9,7 @@ public class RendererThread  implements Runnable{
 	boolean active=false; 
 	View GSV;
 	Game game;
-
+	
 	public RendererThread(View gsv,Game game) {
 		this.GSV=gsv;
 		this.game=game;
