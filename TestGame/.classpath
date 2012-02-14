@@ -4,11 +4,16 @@
 	<classpathentry excluding="**/.svn/" kind="src" path="gen"/>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
-	<classpathentry kind="lib" path="libs/gson-2.0.jar" sourcepath="libs/gson-2.0-sources.jar">
+	<classpathentry kind="lib" path="lib/gson-2.0.jar" sourcepath="lib/gson-2.0-sources.jar">
 		<attributes>
-			<attribute name="javadoc_location" value="jar:platform:/resource/TestGame/libs/gson-2.0-javadoc.jar!/"/>
+			<attribute name="javadoc_location" value="jar:platform:/resource/TestGame/lib/gson-2.0-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="libs/jbox2d-2.0.1-library-only.jar"/>
+	<classpathentry kind="lib" path="lib/jbox2d-library-2.1.2.2.jar" sourcepath="lib/jbox2d-library-2.1.2.2-sources.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/TestGame/lib/jbox2d-library-2.1.2.2-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/slf4j-api-1.6.3.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>
