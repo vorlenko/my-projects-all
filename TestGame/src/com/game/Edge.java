@@ -4,7 +4,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 
-public class Bound {
+public class Edge {
 	float x1;
 	float y1;
 	float x2;

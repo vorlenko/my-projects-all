@@ -2,41 +2,52 @@ package com.game;
 
 import java.util.ArrayList;
 
-import org.jbox2d.collision.AABB;
+import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.common.Vec2;
+import org.jbox2d.dynamics.Body;
+import org.jbox2d.dynamics.BodyDef;
+import org.jbox2d.dynamics.FixtureDef;
 import org.jbox2d.dynamics.World;
 
 import android.graphics.Canvas;
 
 public class Level {
 
-	ArrayList<Bound> bounds;
+	ArrayList<Edge> edges;
 	
 	Hero hero;
 		
-	float width;
-	float height;
-	
 	transient World world;
 	
 	public void onStart(){
 		
-        
-        //	Step 2: Create Physics World with Gravity  
 		Vec2 gravity = new Vec2(0.0f, 0.0f);
 		boolean doSleep = true;
 		world = new World(gravity, doSleep);
 		
+		BodyDef bd = new BodyDef();
+		bd.position.set(0.0f, 0.0f);
+		Body ground = world.createBody(bd);
 		
+		PolygonShape shape = new PolygonShape();
+		
+		FixtureDef sd = new FixtureDef();
+		sd.shape = shape;
+		sd.density = 0.0f;
+		sd.restitution =  0.4f;
+		
+		for(Edge edge : edges) {
+			shape.setAsEdge(new Vec2(edge.x1, edge.y1), new Vec2(edge.x2, edge.y2));
+			ground.createFixture(sd);
+		}
 			
-		// Step 4: Create dynamic body  
         hero.onStart(world);
 	}
 
 	
 	public void onDraw(Canvas canvas) {
-		for (Bound bound : bounds) {
-		    bound.onDraw(canvas);
+		for (Edge edge : edges) {
+		    edge.onDraw(canvas);
 		}
 		
 	    hero.onDraw(canvas);
