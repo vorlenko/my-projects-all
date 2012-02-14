@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import org.jbox2d.collision.AABB;
 import org.jbox2d.common.Vec2;
-
 import org.jbox2d.dynamics.World;
 
 import android.graphics.Canvas;
@@ -21,15 +20,6 @@ public class Level {
 	transient World world;
 	
 	public void onStart(){
-		
-		// Step 1: Create Physics World Boundaries 
-		AABB worldAABB = new AABB();  
-		
-		Vec2 min = new Vec2(-100, -100);
-		Vec2 max = new Vec2(+100, +100);
-		
-		worldAABB.lowerBound.set(min);
-		worldAABB.upperBound.set(max);
 		
         
         //	Step 2: Create Physics World with Gravity  
