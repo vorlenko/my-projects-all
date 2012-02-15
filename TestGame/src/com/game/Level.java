@@ -34,14 +34,15 @@ public class Level {
 		
 		PolygonShape shape = new PolygonShape();
 		
+		/*
 		FixtureDef sd = new FixtureDef();
 		sd.shape = shape;
 		sd.density = 0.0f;
 		sd.restitution =  0.4f;
-		
+		*/
 		for(Edge edge : edges) {
 			shape.setAsEdge(new Vec2(edge.x1/PIXEL2METER_RATIO, edge.y1/PIXEL2METER_RATIO), new Vec2(edge.x2/PIXEL2METER_RATIO, edge.y2/PIXEL2METER_RATIO));
-			ground.createFixture(sd);
+			ground.createFixture(shape, 0.0f);
 		}
 			
         hero.onStart(world);
@@ -57,7 +58,7 @@ public class Level {
 	}
 
 	public void action(float timeStep) {
-		world.step(timeStep, 6, 3);
+		world.step(timeStep, 10, 10);
 
 		//hero.action();
 	}

@@ -64,7 +64,6 @@ public class Control {
             y=0;
             break;
 		}
-		Log.d("touch","x="+x+" y="+y);
 		return true;
 	}
 
