@@ -8,10 +8,10 @@ public class GameThread implements Runnable{
 	boolean active=false; 
 	Game game;
 	
-	
-	public GameThread(Game game) {
+	public GameThread(Game game, Camera camera) {
 		this.game=game;
-		game.onStart();
+		
+		game.onStart(camera);
 	}
 
 	public void run() {

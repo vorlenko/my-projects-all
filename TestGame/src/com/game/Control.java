@@ -2,6 +2,8 @@ package com.game;
 
 
 
+import org.jbox2d.common.Vec2;
+
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -40,6 +42,18 @@ public class Control {
 		canvas.drawBitmap(bmpKnob, bW/2-kW/2+x,cH-bH/2-kH/2+y, null);
 	}
 
+	
+	private void correctLenght(){
+		Vec2 v= new Vec2(x,y);
+		if(v.length()>35){
+			v.normalize();
+			
+			x=v.x*35;
+			y=v.y*35;
+			Log.d("x","x="+x);
+			Log.d("y","y="+y);
+		}
+	}
 
 	public float x=0;
 	public float y=0;
@@ -52,11 +66,13 @@ public class Control {
         case MotionEvent.ACTION_DOWN: 
             x=event.getX()-bW/2;
             y=event.getY()-(cH-bH/2);
+            correctLenght();
             break;
 
         case MotionEvent.ACTION_MOVE:
             x=event.getX()-bW/2;
             y=event.getY()-(cH-bH/2);
+            correctLenght();
             break;
 
         case MotionEvent.ACTION_UP:   

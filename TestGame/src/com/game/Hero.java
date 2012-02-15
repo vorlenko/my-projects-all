@@ -53,6 +53,7 @@ public class Hero {
 
 
 
+
 	Vec2 v=new Vec2(0,0);
 	public void move(boolean up, boolean down,
 			boolean left, boolean right) {
@@ -73,19 +74,8 @@ public class Hero {
 	public void action(){}
 
 	public void move(float x, float y) {
-		Vec2 velocity=body.getLinearVelocity();
-		Vec2 force=new Vec2(x/PIXEL2METER_RATIO,y/PIXEL2METER_RATIO);
+		Vec2 force=new Vec2(x/PIXEL2METER_RATIO/230,y/PIXEL2METER_RATIO/230);
 		body.applyForce(force, body.getPosition());
 		body.setLinearDamping(0.03f);
-		//body.setAngularDamping(0.1f);
-
-//		if((acceleration.length() > 0.1f)&&(velocity.length()<100)){
-//			velocity.add(acceleration);
-//			body.setLinearVelocity(velocity);
-/*
-			body.setTransform(body.getWorldCenter(), 0);
-			body.setLinearDamping(1);
-			body.setAngularDamping(1);*/
-//		}
 	}
 }

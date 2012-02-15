@@ -10,9 +10,11 @@ public class RendererThread  implements Runnable{
 	View GSV;
 	Game game;
 	Control control;
+	Camera camera;
 	
-	public RendererThread(View gsv,Game game, Control control) {
+	public RendererThread(View gsv,Camera camera, Game game, Control control) {
 		this.GSV=gsv;
+		this.camera=camera;
 		this.game=game;
 		this.control=control;
 	}
@@ -32,8 +34,13 @@ public class RendererThread  implements Runnable{
 					canvas = holder.lockCanvas();
 					synchronized(holder){
 						// put frame
+						camera.apply(canvas);
 						game.onDraw(canvas);
+
+						//camera.apply(canvas,0,0);
 						control.onDraw(canvas);
+						//camera.apply(canvas);
+
 						FPS++;
 					}
 				} finally {

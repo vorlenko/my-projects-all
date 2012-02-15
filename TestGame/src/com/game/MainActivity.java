@@ -19,6 +19,7 @@ public class MainActivity extends Activity {
 	RendererThread RT;
 	View GSV;
 	Control control;
+	Camera camera=new Camera();
 	boolean initialized=false;
 	
 	@Override
@@ -38,8 +39,8 @@ public class MainActivity extends Activity {
         GSV=new View(this);
         control=new Control(GSV);
         
-        GT=new GameThread(game);
-        RT=new RendererThread(GSV, game, control);
+        GT=new GameThread(game,camera);
+        RT=new RendererThread(GSV,camera, game, control);
         setContentView(GSV);
         initialized=true;
     }
