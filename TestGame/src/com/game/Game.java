@@ -2,6 +2,8 @@ package com.game;
 
 import java.util.ArrayList;
 
+import org.jbox2d.common.Vec2;
+
 
 
 import android.graphics.Canvas;
@@ -15,7 +17,9 @@ public class Game {
 	
 	transient int currentLevel=0;
 
-	public void onStart(){
+	transient Camera camera;
+	public void onStart(Camera camera){
+		this.camera=camera;
 		for(Level level:levels){
 			level.onStart();
 		}
@@ -27,7 +31,8 @@ public class Game {
 		levels.get(currentLevel).onDraw(canvas);
 	}
 
-	
+	public static final float PIXEL2METER_RATIO = 10;
+
 
 	public void action(float timeStep){
 		
@@ -37,6 +42,10 @@ public class Game {
 										   rightKeyPressed);
 										   
 		levels.get(currentLevel).hero.move(x,y);
+		Hero hero=levels.get(currentLevel).hero;
+		//Vec2 p=hero.body.getPosition();
+		//camera.x=p.x*PIXEL2METER_RATIO;
+		//camera.y=p.y*PIXEL2METER_RATIO;
 		
 		levels.get(currentLevel).action(timeStep);
 	}
