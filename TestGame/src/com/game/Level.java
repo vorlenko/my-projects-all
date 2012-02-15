@@ -24,7 +24,7 @@ public class Level {
 	
 	public void onStart(){
 		
-		Vec2 gravity = new Vec2(0.0f, -1.0f);
+		Vec2 gravity = new Vec2(0.0f, 0.0f);
 		boolean doSleep = true;
 		world = new World(gravity, doSleep);
 		

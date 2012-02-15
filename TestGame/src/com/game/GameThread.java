@@ -24,8 +24,8 @@ public class GameThread implements Runnable{
 			}else{
 				long currentTimeMillis=System.currentTimeMillis();
 				if(currentTimeMillis>previousTimeMillis+10){
+					game.action(currentTimeMillis-previousTimeMillis);
 					previousTimeMillis=currentTimeMillis;
-					game.action(10);
 				}
 			}
 			

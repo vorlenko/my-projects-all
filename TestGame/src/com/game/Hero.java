@@ -56,15 +56,15 @@ public class Hero {
 			boolean left, boolean right) {
 		float ax=0;
 		float ay=0;
-		if(up)   {ay=ay-100f/PIXEL2METER_RATIO;}
-		if(down) {ay=ay+100f/PIXEL2METER_RATIO;}
-		if(left) {ax=ax-100f/PIXEL2METER_RATIO;}
-		if(right){ax=ax+100f/PIXEL2METER_RATIO;}
+		if(up)   {ay=ay-10f/PIXEL2METER_RATIO;}
+		if(down) {ay=ay+10f/PIXEL2METER_RATIO;}
+		if(left) {ax=ax-10f/PIXEL2METER_RATIO;}
+		if(right){ax=ax+10f/PIXEL2METER_RATIO;}
 		
 		v.set(ax, ay);
-		if(v.length()>0){
+		//if(v.length()>0){
 			body.applyLinearImpulse(v, new Vec2(0,0));
-		}
+		//}
 		//Vec2 p=body.getPosition();
 	}
 

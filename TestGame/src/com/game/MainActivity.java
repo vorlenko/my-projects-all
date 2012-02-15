@@ -17,6 +17,7 @@ public class MainActivity extends Activity {
 	GameThread GT;
 	RendererThread RT;
 	View GSV;
+	Control control;
 	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
@@ -33,8 +34,10 @@ public class MainActivity extends Activity {
 		}
 		
         GSV=new View(this);
+        control=new Control(GSV);
+        
         GT=new GameThread(game);
-        RT=new RendererThread(GSV, game);
+        RT=new RendererThread(GSV, game, control);
         setContentView(GSV);
     }
 
