@@ -10,6 +10,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 
 public class MainActivity extends Activity {
 
@@ -18,6 +19,7 @@ public class MainActivity extends Activity {
 	RendererThread RT;
 	View GSV;
 	Control control;
+	boolean initialized=false;
 	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
@@ -39,10 +41,10 @@ public class MainActivity extends Activity {
         GT=new GameThread(game);
         RT=new RendererThread(GSV, game, control);
         setContentView(GSV);
+        initialized=true;
     }
 
 	
-	@Override
 	protected void onPause() {
 		super.onPause();
 		GT.pause();
@@ -50,24 +52,26 @@ public class MainActivity extends Activity {
 	}
 	
 	
-	@Override
 	protected void onResume() {
 		super.onResume();
 		GT.resume();
 		RT.resume();
 	}
 
-	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		Game.onKeyDown(keyCode, event);
 		return super.onKeyDown(keyCode, event);
 	}
 
-	@Override
 	public boolean onKeyUp(int keyCode, KeyEvent event) {
 		Game.onKeyUp(keyCode, event);
 		return super.onKeyUp(keyCode, event);
 	}
-
+	
+	@Override
+	  public boolean onTouchEvent(MotionEvent event) {
+		if(initialized){control.onTouchEvent(event);}
+		return true;
+	}
 	
 }

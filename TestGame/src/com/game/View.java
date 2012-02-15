@@ -12,4 +12,7 @@ public class View extends SurfaceView{
 		super(context);
 		holder = getHolder();
 	}
+	
+
+
 }
