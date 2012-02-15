@@ -59,18 +59,21 @@ public class MainActivity extends Activity {
 	}
 
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		Game.onKeyDown(keyCode, event);
+		if(initialized) Game.onKeyDown(keyCode, event);
 		return super.onKeyDown(keyCode, event);
 	}
 
 	public boolean onKeyUp(int keyCode, KeyEvent event) {
-		Game.onKeyUp(keyCode, event);
+		if(initialized) Game.onKeyUp(keyCode, event);
 		return super.onKeyUp(keyCode, event);
 	}
 	
 	@Override
 	  public boolean onTouchEvent(MotionEvent event) {
-		if(initialized){control.onTouchEvent(event);}
+		if(initialized) {
+			control.onTouchEvent(event);
+			Game.moveAction(control.x,control.y);
+		}
 		return true;
 	}
 	

@@ -25,18 +25,20 @@ public class Hero {
 	public void onStart(World world){
 		
 		CircleShape shape = new CircleShape();
+
 		shape.m_radius = 20.0f/PIXEL2METER_RATIO;
 
 		FixtureDef fd = new FixtureDef();
 		fd.shape = shape;
 		fd.density = 1.0f;
-
+		fd.restitution=0;
+		
 		BodyDef bd = new BodyDef();
 		bd.type = BodyType.DYNAMIC;
 		bd.position.set(x/PIXEL2METER_RATIO,y/PIXEL2METER_RATIO);
 		body = world.createBody(bd);
 		body.createFixture(fd);
-		body.setMassData(new MassData());
+		
 	}
 	
 	public void onDraw(Canvas canvas) {
@@ -69,4 +71,21 @@ public class Hero {
 	}
 
 	public void action(){}
+
+	public void move(float x, float y) {
+		Vec2 velocity=body.getLinearVelocity();
+		Vec2 force=new Vec2(x/PIXEL2METER_RATIO,y/PIXEL2METER_RATIO);
+		body.applyForce(force, body.getPosition());
+		body.setLinearDamping(0.03f);
+		//body.setAngularDamping(0.1f);
+
+//		if((acceleration.length() > 0.1f)&&(velocity.length()<100)){
+//			velocity.add(acceleration);
+//			body.setLinearVelocity(velocity);
+/*
+			body.setTransform(body.getWorldCenter(), 0);
+			body.setLinearDamping(1);
+			body.setAngularDamping(1);*/
+//		}
+	}
 }

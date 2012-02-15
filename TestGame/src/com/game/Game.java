@@ -36,10 +36,18 @@ public class Game {
 										   leftKeyPressed,
 										   rightKeyPressed);
 										   
+		levels.get(currentLevel).hero.move(x,y);
 		
 		levels.get(currentLevel).action(timeStep);
 	}
 
+	transient static float x=0;
+	transient static float y=0;
+	
+	public static void moveAction(float x, float y) {
+		Game.x=x;
+		Game.y=y;
+	}
 	
 	transient static boolean upKeyPressed=false;
 	transient static boolean downKeyPressed=false;
@@ -65,4 +73,5 @@ public class Game {
         case KeyEvent.KEYCODE_DPAD_RIGHT: rightKeyPressed=false; return;
         }
 	}
+
 }
