@@ -23,7 +23,7 @@ public class Game {
 	
 	public void onDraw(Canvas canvas){
 
-		canvas.drawARGB(255, 0, 0, 0);
+		canvas.drawARGB(255, 255, 255, 255);
 		levels.get(currentLevel).onDraw(canvas);
 	}
 
