@@ -36,23 +36,24 @@ public class Game implements ApplicationListener {
 		gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 
 		camera.update();
+        background.onUpdate(1);
         camera.apply(gl);
 
         pixmap.setColor(0.0f, 0.0f, 0.0f, 1.0f);
-        pixmap.fillRectangle((int) x, (int) x, 10,10);
+        pixmap.fillRectangle(0, 0, width,height);
 		
 		float t=Gdx.graphics.getDeltaTime();
 		x=x+t*300;
 		if(x>300){x=0;};
-		
-		//Gdx.app.log("t", "t="+t);
+
+		background.onDraw(pixmap);
 		
         pixmap.setColor(1.0f, 1.0f, 1.0f, 1.0f);
         pixmap.drawRectangle(10, 10, width-20,height-20);
         pixmap.drawRectangle(12, 12, width-24,height-24);
 
         pixmap.fillRectangle((int) x, (int) x, 10,10);
-		
+
 
         batch.begin();
         texture.draw(pixmap, 0, 0);
@@ -63,6 +64,7 @@ public class Game implements ApplicationListener {
 		fps.log();
 	}
 
+	Background background;
 	private int width;
 	private int height;
 	public void resize(int width, int height) {
@@ -74,6 +76,8 @@ public class Game implements ApplicationListener {
 		region = new TextureRegion(texture, 0, 0, width, height);
 		camera = new OrthographicCamera(width, height);
 		camera.position.set(width/2,height/2, 0);
+		
+		background = new Background(width,height);
 	}
 
 	public int powerOf2(int size){
