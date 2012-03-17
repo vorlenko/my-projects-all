@@ -6,9 +6,7 @@ import com.game.Game;
 
 
 public class GameDesktop {
-	static LwjglApplication application;
-	
 	 public static void main (String[] argv) {
-		 application = new LwjglApplication(new Game(), "Arkanoid", 480, 640, false);
+		 new LwjglApplication(new Game(), "Arkanoid", 480, 640, false);
 	 }
 }
