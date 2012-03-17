@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.Pixmap;
 
 public class Background {
 
-	private static int NUMBER_OF_POINTS=50000;
+	private static int NUMBER_OF_POINTS=500;
 	
 	Point3d[] points= new Point3d[NUMBER_OF_POINTS];
 	
