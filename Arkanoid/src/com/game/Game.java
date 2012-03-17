@@ -21,11 +21,12 @@ public class Game implements ApplicationListener {
 	private SpriteBatch batch;
 	private Pixmap pixmap;
 	private Texture texture;
-	private FPSLogger fps =  new FPSLogger();
-
+	private FPSLogger fps = new FPSLogger();
+	private Controls controls = new Controls();
+	
 	public void create() {
 		batch=new SpriteBatch();
-
+		Gdx.input.setInputProcessor(controls);
 		
 	}
 
@@ -48,9 +49,12 @@ public class Game implements ApplicationListener {
 
 		background.onDraw(pixmap);
 		
+		platform.setX(controls.getX()-width/2);
+		platform.onDraw(pixmap);
+		
         pixmap.setColor(1.0f, 1.0f, 1.0f, 1.0f);
-        pixmap.drawRectangle(10, 10, width-20,height-20);
-        pixmap.drawRectangle(12, 12, width-24,height-24);
+        pixmap.drawRectangle(10, 10, width-20,height+20);
+        pixmap.drawRectangle(12, 12, width-24,height+24);
 
         pixmap.fillRectangle((int) x, (int) x, 10,10);
 
@@ -65,6 +69,7 @@ public class Game implements ApplicationListener {
 	}
 
 	Background background;
+	Platform platform;
 	private int width;
 	private int height;
 	public void resize(int width, int height) {
@@ -78,6 +83,7 @@ public class Game implements ApplicationListener {
 		camera.position.set(width/2,height/2, 0);
 		
 		background = new Background(width,height);
+		platform = new Platform(width,height);
 	}
 
 	public int powerOf2(int size){
