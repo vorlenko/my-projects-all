@@ -1,8 +1,5 @@
 package com.game;
 
-
-
-
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.game.Game;
 
