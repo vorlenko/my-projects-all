@@ -6,7 +6,7 @@ public class Type2 {
 
 	
 	public void out(){
-		System.out.print(" Type2 invoked! y="+y);
+		System.out.println(" Type2 invoked! y="+y);
 	}
 
 }
