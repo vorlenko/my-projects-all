@@ -1,17 +1,9 @@
 package json.test;
-public class Type1 extends ItemClass {
+public class Type1 {
 
-	public Type1(){}
-	
-	String name;
-	public Type1(String name,int i){
-		this.name=name;
-		this.i=i;
-	}
-	
-	int i;
-	
+	int x;
+
 	public void out(){
-		System.out.println("Type1");
+		System.out.print(" Type1 invoked! x="+x);
 	}
 }
