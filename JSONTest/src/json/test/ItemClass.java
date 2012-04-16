@@ -1,3 +1,4 @@
+package json.test;
 
 public class ItemClass implements ItemInterface{
 

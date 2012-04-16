@@ -1,3 +1,4 @@
+package json.test;
 public class Type1 extends ItemClass {
 
 	public Type1(){}

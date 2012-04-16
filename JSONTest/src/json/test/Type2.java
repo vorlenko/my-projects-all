@@ -1,3 +1,4 @@
+package json.test;
 public class Type2 extends ItemClass {
 	String name;
 	public Type2(String name){
