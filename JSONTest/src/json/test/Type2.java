@@ -5,8 +5,8 @@ public class Type2 {
 	
 
 	
-	public void out(){
-		System.out.println(" Type2 invoked! y="+y);
+	public void out(String a,String b){
+		System.out.println(" Type2 invoked! y="+y+a+b);
 	}
 
 }
