@@ -5,10 +5,10 @@ import java.util.Map.Entry;
 
 
 public class Container {
-	@SuppressWarnings("rawtypes") // fuck off me!, its my personal trick with map! ;)
-	//ArrayList<Entry> items = new ArrayList<Entry>();
+	@SuppressWarnings("rawtypes") 
+	ArrayList<Entry> items = new ArrayList<Entry>();
 
-	ArrayList<String> items = new ArrayList<String>();
+	//ArrayList<String> items = new ArrayList<String>();
 
 /*	
 	public void out(){
@@ -26,14 +26,12 @@ public class Container {
 	
 	}
 	*/
+/*	
 	public Container(){
-		
+		items.put("Type1",new Type1("hello",1));
+		items.put("Type2",new Type2("my"));
+		items.put("Type3",new Type1("dear",3));
+		items.put("Type4",new Type2("world"));
 	}
-	//public Container(){
-		//items.put("Type1",new Type1("hello",1));
-		//items.put("Type2",new Type2("my"));
-		//items.put("Type3",new Type1("dear",3));
-		//items.put("Type4",new Type2("world"));
-	//}
-	
+	*/
 }
