@@ -4,6 +4,6 @@ public class Type1 {
 	int x;
 
 	public void out(){
-		System.out.print(" Type1 invoked! x="+x);
+		System.out.println(" Type1 invoked! x="+x);
 	}
 }
