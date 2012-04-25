@@ -27,22 +27,32 @@
 
 import tiled.core.Map;
 import tiled.core.MapLayer;
+import tiled.core.MapObject;
+import tiled.core.ObjectGroup;
 import tiled.core.TileLayer;
 import tiled.io.TMXMapReader;
 import tiled.view.MapRenderer;
 import tiled.view.OrthogonalRenderer;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
+
+
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 /**
  * An example showing how to use libtiled-java to do a simple TMX viewer.
  */
 public class TMXViewer
 {
-    public static void main(String[] arguments) {
+	
+    public static void main(String[] arguments) throws IOException {
         String fileToOpen = null;
 
+     
         for (String arg : arguments) {
             if ("-?".equals(arg) || "-help".equals(arg)) {
                 printHelpMessage();
@@ -65,13 +75,15 @@ public class TMXViewer
         try {
             TMXMapReader mapReader = new TMXMapReader();
             map = mapReader.readMap(fileToOpen);
+            
         } catch (Exception e) {
             System.out.println("Error while reading the map:\n" + e.getMessage());
             return;
         }
-
+       
         System.out.println(map.toString() + " loaded");
 
+      
         JScrollPane scrollPane = new JScrollPane(new MapView(map));
         scrollPane.setBorder(null);
         scrollPane.setPreferredSize(new Dimension(800, 600));
@@ -97,17 +109,25 @@ public class TMXViewer
 
 class MapView extends JPanel implements Scrollable
 {
-    private Map map;
+	static BufferedImage img;
+
+	private Map map;
     private MapRenderer renderer;
 
-    public MapView(Map map) {
+    public MapView(Map map) throws IOException{
         this.map = map;
         renderer = createRenderer(map);
+
+        
+        
+        img = ImageIO.read(new File("assets/player.png"));
 
         setPreferredSize(renderer.getMapSize());
         setOpaque(true);
     }
 
+    
+    
     public void paintComponent(Graphics g) {
         final Graphics2D g2d = (Graphics2D) g.create();
         final Rectangle clip = g2d.getClipBounds();
@@ -118,10 +138,22 @@ class MapView extends JPanel implements Scrollable
 
         // Draw each tile map layer
         for (MapLayer layer : map) {
-            if (layer instanceof TileLayer) {
+            if (layer instanceof ObjectGroup) {
+            	ObjectGroup o = (ObjectGroup) layer;
+            	System.out.println(o.getName());
+            }
+            
+        	if (layer instanceof TileLayer) {
                 renderer.paintTileLayer(g2d, (TileLayer) layer);
             }
         }
+
+
+        int x=0;
+        int y=0;
+        
+        g.drawImage(img, x-16,y-16,x+16,y+16,0,0,32,32, new Color(1,1,1,0), this);
+        
     }
 
     private static MapRenderer createRenderer(Map map) {
