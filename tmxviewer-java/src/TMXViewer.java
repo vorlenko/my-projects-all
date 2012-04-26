@@ -42,6 +42,8 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Iterator;
+import java.util.ListIterator;
 
 /**
  * An example showing how to use libtiled-java to do a simple TMX viewer.
@@ -138,9 +140,19 @@ class MapView extends JPanel implements Scrollable
 
         // Draw each tile map layer
         for (MapLayer layer : map) {
-            if (layer instanceof ObjectGroup) {
-            	ObjectGroup o = (ObjectGroup) layer;
-            	System.out.println(o.getName());
+            
+        	if (layer instanceof ObjectGroup) {
+            	ObjectGroup og = (ObjectGroup) layer;
+            	System.out.println(og.getName());
+            	
+            	Iterator<MapObject> itr = og.getObjects();
+            	
+            	 while(itr.hasNext()){
+            		 MapObject mo=itr.next();
+            		 
+            		 System.out.println("  "+mo.getName()+":"+mo.getType());
+            	 }
+            	
             }
             
         	if (layer instanceof TileLayer) {
