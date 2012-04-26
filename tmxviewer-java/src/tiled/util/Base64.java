@@ -187,7 +187,8 @@ static {
 // for testing purposes only, feel free to clip it.
 ///////////////////////////////////////////////////
 
-public static void main(String[] args)
+
+public static void main_(String[] args)
 {
     boolean decode = false;
 
@@ -220,6 +221,7 @@ public static void main(String[] args)
         writeChars(file, encoded);
     }
 }
+
 
 private static byte[] readBytes(File file)
 {
@@ -278,6 +280,7 @@ private static void writeChars(File file, char[] data) {
     }
     catch (Exception e) { e.printStackTrace(); }
 }
+
 ///////////////////////////////////////////////////
 // end of test code.
 ///////////////////////////////////////////////////
