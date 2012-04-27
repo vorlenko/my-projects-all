@@ -1,0 +1,2 @@
+serviceClass: com.tmx.client.GameService
+path: 9178F76DA69F283F839351DCCCF88BF8.gwt.rpc
