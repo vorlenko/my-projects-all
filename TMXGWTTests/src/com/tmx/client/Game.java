@@ -2,7 +2,9 @@ package com.tmx.client;
 
 
 
-import tiled.gwt.Map;
+
+
+import tiled.core.Map;
 
 import com.google.gwt.user.client.ui.Image;
 
@@ -13,7 +15,7 @@ public class Game {
 	
 	public Image img;
 	
-	public Game() {
+	public Game(Map map) {
 		img = new Image("desert_tiled.png");
 	}
 	
