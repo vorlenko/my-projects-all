@@ -20,11 +20,12 @@
 
 package tiled.core;
 
+import java.util.Iterator;
 import java.util.Properties;
 import java.util.Vector;
 
 import java.awt.Rectangle;
-import java.util.*;
+
 
 /**
  * The Map class is the focal point of the <code>tiled.core</code> package.
@@ -42,7 +43,7 @@ public class Map implements Iterable<MapLayer>
 
     private int tileWidth, tileHeight;
     private int orientation = ORIENTATION_ORTHOGONAL;
-    private Properties properties;
+    private Properties properties; 
     private String filename;
     protected Rectangle bounds;          // in tiles
 
