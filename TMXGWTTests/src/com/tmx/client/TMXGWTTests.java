@@ -2,8 +2,9 @@ package com.tmx.client;
 
 
 
-import tiled.gwt.Map;
-import tiled.io.TMXMapReader;
+
+
+import tiled.core.Map;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
@@ -22,20 +23,19 @@ public class TMXGWTTests implements EntryPoint {
     static final String id = "gamePanel";
 
     Game game;
-
     
 	private final GameServiceAsync gameService = (GameServiceAsync) GWT.create(GameService.class);
 
 	public void onModuleLoad() {
  	
-    	gameService.getGameData(new AsyncCallback<String>() {
+    	gameService.getGameData(new AsyncCallback<Map>() {
             public void onFailure(Throwable caught) {
             	Window.alert(caught.getMessage());
             }
 
-            public void onSuccess(String result) {
+            public void onSuccess(Map map) {
             
-            	game = new Game();
+            	game = new Game(map);
          		
       	
             	
@@ -61,8 +61,7 @@ public class TMXGWTTests implements EntryPoint {
                     }
                 };
                 timer.scheduleRepeating(refreshRate);
-
-                Window.alert(result);
+             
             
             }
         });

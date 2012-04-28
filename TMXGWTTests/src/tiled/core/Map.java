@@ -20,6 +20,9 @@
 
 package tiled.core;
 
+import java.util.Properties;
+import java.util.Vector;
+
 import java.awt.Rectangle;
 import java.util.*;
 
