@@ -1,6 +1,10 @@
 package com.tmx.client;
 
 
+
+import tiled.gwt.Map;
+import tiled.io.TMXMapReader;
+
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.logical.shared.ResizeEvent;
@@ -17,8 +21,9 @@ public class TMXGWTTests implements EntryPoint {
     HTMLPanel panel;
     static final String id = "gamePanel";
 
-    Game game = new Game();
+    Game game;
 
+    
 	private final GameServiceAsync gameService = (GameServiceAsync) GWT.create(GameService.class);
 
 	public void onModuleLoad() {
@@ -29,7 +34,11 @@ public class TMXGWTTests implements EntryPoint {
             }
 
             public void onSuccess(String result) {
-
+            
+            	game = new Game();
+         		
+      	
+            	
         	    panel = new HTMLPanel("<div class=\"content\" id=\"" + id + "\"></div>");
                 panel.setStyleName("contentHolder");
                 

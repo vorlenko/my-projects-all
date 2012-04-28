@@ -12,10 +12,13 @@
   <!-- <inherits name='com.google.gwt.user.theme.dark.Dark'/>     -->
 
   <!-- Other module inherits                                      -->
+  <inherits name='tiled.TiledMap'/>
+
 
   <!-- Specify the app entry point class.                         -->
   <entry-point class='com.tmx.client.TMXGWTTests'/>
-
+  
+  
   <!-- Specify the paths for translatable code                    -->
   <source path='client'/>
 

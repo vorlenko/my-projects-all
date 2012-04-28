@@ -1,5 +1,9 @@
 package com.tmx.client;
 
+
+
+import tiled.gwt.Map;
+
 import com.google.gwt.user.client.ui.Image;
 
 
@@ -27,10 +31,10 @@ public class Game {
 				screen.putImage(img,32,32,32,32,x*32,y*32,32,32);
 			}
 		}
+		screen.circle((int)(512+100*Math.sin(a)), (int)(512+100*Math.cos(a)), 100, new Color(255,255,255));
 		
-		for(int x=1;x<100;x++){
-			screen.circle((int)(512+100*Math.sin(a)), (int)(512+100*Math.cos(a)), x, new Color(0,x,x));
-		}
+		//for(int x=1;x<100;x++){
+		//}
 	
     }
 
