@@ -1,9 +1,5 @@
 package com.tmx.client;
 
-
-
-
-
 import tiled.core.Map;
 
 import com.google.gwt.core.client.EntryPoint;

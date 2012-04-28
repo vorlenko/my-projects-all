@@ -24,7 +24,7 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.geom.Area;
 import java.util.HashMap;
-import java.util.Properties;
+import tiled.core.Properties;
 
 /**
  * A TileLayer is a specialized MapLayer, used for tracking two dimensional
