@@ -8,4 +8,10 @@ public class Properties extends HashMap<String,String>{
 	public String getProperty(String key){
 		return get(key);
 	}
+
+	public void setProperty(String key,String value){
+		put(key,value);
+	}
+	
+	public Properties(){}
 }

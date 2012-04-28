@@ -21,7 +21,7 @@
 package tiled.core;
 
 import java.awt.*;
-import java.util.Properties;
+import tiled.core.Properties;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;

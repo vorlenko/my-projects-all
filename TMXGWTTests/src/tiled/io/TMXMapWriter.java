@@ -164,7 +164,7 @@ public class TMXMapWriter
         w.endElement();
     }
 
-    private static void writeProperties(java.util.Properties properties, XMLWriter w) throws
+    private static void writeProperties(tiled.core.Properties properties, XMLWriter w) throws
             IOException
     {
         if (!properties.isEmpty()) {
