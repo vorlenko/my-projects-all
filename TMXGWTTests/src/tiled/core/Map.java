@@ -43,7 +43,7 @@ public class Map implements Iterable<MapLayer>
 
     private int tileWidth, tileHeight;
     private int orientation = ORIENTATION_ORTHOGONAL;
-    private Properties properties; 
+    private tiled.core.Properties properties; 
     private String filename;
     protected Rectangle bounds;          // in tiles
 
@@ -54,7 +54,7 @@ public class Map implements Iterable<MapLayer>
     public Map(int width, int height) {
         layers = new Vector<MapLayer>();
         bounds = new Rectangle(width, height);
-        properties = new Properties();
+        properties = new tiled.core.Properties();
         tileSets = new Vector<TileSet>();
     }
 
@@ -258,11 +258,11 @@ public class Map implements Iterable<MapLayer>
     /**
      * @return the map properties
      */
-    public Properties getProperties() {
+    public tiled.core.Properties getProperties() {
         return properties;
     }
 
-    public void setProperties(Properties prop) {
+    public void setProperties(tiled.core.Properties prop) {
         properties = prop;
     }
 

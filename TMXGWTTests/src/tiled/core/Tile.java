@@ -21,7 +21,7 @@
 package tiled.core;
 
 import java.awt.*;
-import java.util.Properties;
+import tiled.core.Properties;
 
 /**
  * The core class for our tiles.

@@ -22,7 +22,11 @@ package tiled.io;
 
 import java.awt.Color;
 import java.awt.Image;
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -42,7 +46,15 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.EntityResolver;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
-import tiled.core.*;
+
+import tiled.core.AnimatedTile;
+import tiled.core.Map;
+import tiled.core.MapLayer;
+import tiled.core.MapObject;
+import tiled.core.ObjectGroup;
+import tiled.core.Tile;
+import tiled.core.TileLayer;
+import tiled.core.TileSet;
 import tiled.util.Base64;
 import tiled.util.BasicTileCutter;
 import tiled.util.ImageHelper;
@@ -400,7 +412,7 @@ public class TMXMapReader
             }
         }
 
-        Properties props = new Properties();
+        tiled.core.Properties props = new tiled.core.Properties();
         readProperties(children, props);
 
         obj.setProperties(props);
@@ -417,9 +429,9 @@ public class TMXMapReader
      * in Tiled 0.7.0 (tmx version 0.99c).
      *
      * @param children the children amongst which to find properties
-     * @param props    the properties object to set the properties of
+     * @param tip    the properties object to set the properties of
      */
-    private static void readProperties(NodeList children, Properties props) {
+    private static void readProperties(NodeList children, tiled.core.Properties tip) {
         for (int i = 0; i < children.getLength(); i++) {
             Node child = children.item(i);
             if ("property".equalsIgnoreCase(child.getNodeName())) {
@@ -434,10 +446,10 @@ public class TMXMapReader
                     }
                 }
                 if (value != null)
-                    props.setProperty(key, value);
+                    tip.setProperty(key, value);
             }
             else if ("properties".equals(child.getNodeName())) {
-                readProperties(child.getChildNodes(), props);
+                readProperties(child.getChildNodes(), tip);
             }
         }
     }
@@ -509,7 +521,7 @@ public class TMXMapReader
             }
         }
 
-        Properties props = new Properties();
+        tiled.core.Properties props = new tiled.core.Properties();
         readProperties(children, props);
         og.setProperties(props);
 
@@ -617,7 +629,7 @@ public class TMXMapReader
                         int x = getAttribute(tpn, "x", -1);
                         int y = getAttribute(tpn, "y", -1);
 
-                        Properties tip = new Properties();
+                        tiled.core.Properties tip = new tiled.core.Properties();
 
                         readProperties(tpn.getChildNodes(), tip);
                         ml.setTileInstancePropertiesAt(x, y, tip);

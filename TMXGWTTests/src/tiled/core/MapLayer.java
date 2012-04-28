@@ -22,7 +22,7 @@ package tiled.core;
 
 import java.awt.Rectangle;
 import java.awt.geom.Area;
-import java.util.Properties;
+import tiled.core.Properties;
 
 /**
  * A layer of a map.
