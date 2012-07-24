@@ -10,13 +10,14 @@ import static playn.core.PlayN.*;
 
 
 public class Game implements playn.core.Game {
-	
+	public static final String WALL_FILE="block.png";
+
 	public static int SCREEN_WIDTH=640;
 	public static int SCREEN_HEIGHT=480;
 	public static boolean initialized=false;
 	public static final float PIXEL_PER_METER=500;
 
-	public HashMap<String, Image> images;
+	public static HashMap<String, Image> images;
 	public ArrayList<Level> levels;
 	
 	public Controls controls;
@@ -32,6 +33,12 @@ public class Game implements playn.core.Game {
 		graphics().rootLayer().setScale(1,1);
 		
 		keyboard().setListener(controls);
+		
+		Level level=levels.get(0);
+		level.init();
+		
+		graphics().rootLayer().add(level.layer);
+		
 	}
 
 	
