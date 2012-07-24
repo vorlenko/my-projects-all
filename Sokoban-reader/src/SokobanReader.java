@@ -69,7 +69,10 @@ public class SokobanReader {
 			Gson gson=new Gson();
 
 			BufferedWriter out = new BufferedWriter(new FileWriter("levels.json"));
-			out.write(gson.toJson(levels));
+			
+			LevelsContainer container=new LevelsContainer(levels);
+			
+			out.write(gson.toJson(container));
 			out.close();
 			
 		}catch (Exception e){
