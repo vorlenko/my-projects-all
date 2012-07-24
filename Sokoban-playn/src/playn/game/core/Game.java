@@ -16,10 +16,10 @@ public class Game implements playn.core.Game {
 	public static boolean initialized=false;
 	public static final float PIXEL_PER_METER=500;
 
-	public static HashMap<String, Image> images;
-	public static ArrayList<Level> levels;
+	public HashMap<String, Image> images;
+	public ArrayList<Level> levels;
 	
-	public static Controls controls;
+	public Controls controls;
 	
 	public Game(Controls controls,ArrayList<Level> levels,HashMap<String, Image> images) {
 		this.levels=levels;
