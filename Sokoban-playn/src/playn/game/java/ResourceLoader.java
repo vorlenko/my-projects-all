@@ -17,7 +17,7 @@ public class ResourceLoader implements ResourceChecker {
 	private static HashMap<String,Image> images = new HashMap<String, Image>(){
 		private static final long serialVersionUID = 1L;
 		{
-			put("images.png", null);
+			put("block.png", null);
 		}
 	};
 	
