@@ -55,6 +55,13 @@ public class SokobanReader {
 			    				break;
 			    			case Entity.TYPE_GOAL: level.items.add(new Entity(x,y,Entity.TYPE_GOAL));
 			    				break;
+			    			case Entity.TYPE_PLAYER: level.items.add(new Entity(x,y,Entity.TYPE_PLAYER));
+		    					break;
+			    			case Entity.TYPE_BOX_ON_GOAL: level.items.add(new Entity(x,y,Entity.TYPE_GOAL)); level.items.add(new Entity(x,y,Entity.TYPE_BOX));
+		    				break;
+			    			case Entity.TYPE_PLAYER_ON_GOAL: level.items.add(new Entity(x,y,Entity.TYPE_GOAL)); level.items.add(new Entity(x,y,Entity.TYPE_PLAYER));
+		    				break;
+
 				    		default:
 				    			break;
 						}
