@@ -49,14 +49,12 @@ public class SokobanReader {
 						Character symbol=new Character(c);
 				  
 						switch(symbol){
-				    		case 0x23: level.walls.add(new Wall(x,y));
-				    			break;
-				    		case 0x24: level.boxes.add(new Box(x,y));
-				    			break;
-				    		case 0x2e: level.goals.add(new Goal(x,y));
-				    			break;
-				    		case 0x40: level.player=new Player(x,y);
-				    			break;
+			    			case Entity.TYPE_BOX: level.items.add(new Entity(x,y,Entity.TYPE_BOX));
+			    				break;
+			    			case Entity.TYPE_WALL: level.items.add(new Entity(x,y,Entity.TYPE_WALL));
+			    				break;
+			    			case Entity.TYPE_GOAL: level.items.add(new Entity(x,y,Entity.TYPE_GOAL));
+			    				break;
 				    		default:
 				    			break;
 						}
