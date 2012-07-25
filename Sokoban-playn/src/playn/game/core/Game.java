@@ -32,7 +32,7 @@ public class Game implements playn.core.Game {
 		
 		keyboard().setListener(controls);
 		
-		Level level=levels.get(1);
+		Level level=levels.get(2);
 		level.init();
 		
 		graphics().rootLayer().add(level.layer);
