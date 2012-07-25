@@ -9,6 +9,7 @@ import playn.core.Image;
 import playn.core.PlayN;
 import playn.game.core.Controls;
 import playn.game.core.Game;
+import playn.game.model.Entity;
 import playn.game.model.LevelsContainer;
 import playn.java.JavaPlatform;
 
@@ -17,9 +18,13 @@ public class ResourceLoader implements ResourceChecker {
 	private static HashMap<String,Image> images = new HashMap<String, Image>(){
 		private static final long serialVersionUID = 1L;
 		{
-			put(Game.WALL_FILE, null);
+			put(Entity.FILE_WALL, null);
+			put(Entity.FILE_GOAL, null);
+			put(Entity.FILE_BOX, null);
 		}
 	};
+	
+	
 	
 	public static LevelsContainer container = new LevelsContainer();
 

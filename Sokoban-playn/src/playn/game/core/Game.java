@@ -10,8 +10,6 @@ import static playn.core.PlayN.*;
 
 
 public class Game implements playn.core.Game {
-	public static final String WALL_FILE="block.png";
-
 	public static int SCREEN_WIDTH=640;
 	public static int SCREEN_HEIGHT=480;
 	public static boolean initialized=false;
@@ -34,7 +32,7 @@ public class Game implements playn.core.Game {
 		
 		keyboard().setListener(controls);
 		
-		Level level=levels.get(0);
+		Level level=levels.get(1);
 		level.init();
 		
 		graphics().rootLayer().add(level.layer);
