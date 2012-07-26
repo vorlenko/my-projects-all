@@ -26,13 +26,14 @@ public class Game implements playn.core.Game {
 		this.controls=controls;
 	}
 
+	public static Level level;
 	
 	public void init() {
 		graphics().rootLayer().setScale(1,1);
 		
 		keyboard().setListener(controls);
 		
-		Level level=levels.get(2);
+		level=levels.get(1);
 		level.init();
 		
 		graphics().rootLayer().add(level.layer);
@@ -41,6 +42,7 @@ public class Game implements playn.core.Game {
 
 	
 	public void update(float delta) {
+		
 	}
 
 	public void paint(float alpha) {

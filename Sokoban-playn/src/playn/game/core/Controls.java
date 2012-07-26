@@ -34,13 +34,20 @@ public class Controls implements Keyboard.Listener {
 	    switch (event.key()) {
 	      case LEFT:
 	          left = false;
+	          Game.level.left();
 	          break;
 	        case UP:
+	          Game.level.up();
 	          up = false;
 	          break;
 	        case RIGHT:
+	          Game.level.right();
 	          right = false;
 	          break;
+	        case DOWN:
+ 	          Game.level.down();
+		      right = false;
+		      break;
 	    }
 
 	}
