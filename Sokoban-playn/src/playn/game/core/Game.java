@@ -33,7 +33,7 @@ public class Game implements playn.core.Game {
 		
 		keyboard().setListener(controls);
 		
-		level=levels.get(1);
+		level=levels.get(80);
 		
 		
 		level.init();
