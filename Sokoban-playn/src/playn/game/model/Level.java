@@ -16,8 +16,6 @@ public class Level implements ImmediateLayer.Renderer {
         public String name;
         public ArrayList<Entity> items=new ArrayList<Entity>();
         
-        private ArrayList<Entity> backup=new ArrayList<Entity>(); 
-        
         private int width=0;
         private int height=0;
         
@@ -39,10 +37,25 @@ public class Level implements ImmediateLayer.Renderer {
                 
                 calc();
                 
+                backup();
+                
                 sceneLayer=graphics().createImmediateLayer((width+1)*32,(height+1)*32,this);
                 
                 layer.addAt(sceneLayer,(Game.SCREEN_WIDTH-(width+1)*32)/2,(Game.SCREEN_HEIGHT-(height+1)*32)/2);
         }
+
+        
+        public void backup() {
+        	for(Entity item:items){
+        		item.backup();
+        	}
+        }
+        
+        public void restore() {
+        	for(Entity item:items){
+        		item.restore();
+        	}
+		}
         
         Comparator<Entity> comparator=new Comparator<Entity>(){
 				@Override
