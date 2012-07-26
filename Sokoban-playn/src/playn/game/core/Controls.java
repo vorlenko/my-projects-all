@@ -48,6 +48,11 @@ public class Controls implements Keyboard.Listener {
  	          Game.level.down();
 		      right = false;
 		      break;
+	        case ENTER:
+	          System.out.println("restart");
+	          right = false;
+		      break;
+
 	    }
 
 	}

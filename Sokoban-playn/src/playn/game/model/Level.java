@@ -7,6 +7,7 @@ import java.util.Comparator;
 import playn.core.GroupLayer;
 import playn.core.ImmediateLayer;
 import playn.core.Surface;
+import playn.game.core.Game;
 import static playn.core.PlayN.graphics;
 
 
@@ -14,7 +15,8 @@ public class Level implements ImmediateLayer.Renderer {
         
         public String name;
         public ArrayList<Entity> items=new ArrayList<Entity>();
-        public Player player;
+        
+        private ArrayList<Entity> backup=new ArrayList<Entity>(); 
         
         private int width=0;
         private int height=0;
@@ -29,22 +31,19 @@ public class Level implements ImmediateLayer.Renderer {
         public static GroupLayer layer;
         
         ImmediateLayer sceneLayer;
+
         
         public void init(){
+        	
                 layer=graphics().createGroupLayer();
                 
                 calc();
                 
-
                 sceneLayer=graphics().createImmediateLayer((width+1)*32,(height+1)*32,this);
-
-                //background=graphics().createSurfaceLayer((width+1)*32, (height+1)*32);
                 
-                layer.addAt(sceneLayer,(640-(width+1)*32)/2,(480-(height+1)*32)/2);
-
-
+                layer.addAt(sceneLayer,(Game.SCREEN_WIDTH-(width+1)*32)/2,(Game.SCREEN_HEIGHT-(height+1)*32)/2);
         }
-
+        
         Comparator<Entity> comparator=new Comparator<Entity>(){
 				@Override
 				public int compare(Entity a, Entity b) {

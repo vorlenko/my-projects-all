@@ -16,7 +16,7 @@ public class Game implements playn.core.Game {
 	public static final float PIXEL_PER_METER=500;
 
 	public static HashMap<String, Image> images;
-	public ArrayList<Level> levels;
+	public static ArrayList<Level> levels;
 	
 	public Controls controls;
 	
@@ -29,11 +29,13 @@ public class Game implements playn.core.Game {
 	public static Level level;
 	
 	public void init() {
-		graphics().rootLayer().setScale(1,1);
+		graphics().rootLayer().setScale(1f,1f);
 		
 		keyboard().setListener(controls);
 		
 		level=levels.get(1);
+		
+		
 		level.init();
 		
 		graphics().rootLayer().add(level.layer);
