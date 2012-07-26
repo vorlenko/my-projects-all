@@ -7,12 +7,15 @@ import java.util.Comparator;
 import playn.core.GroupLayer;
 import playn.core.ImmediateLayer;
 import playn.core.Surface;
+import playn.core.SurfaceLayer;
 import playn.game.core.Game;
 import static playn.core.PlayN.graphics;
 
 
 public class Level implements ImmediateLayer.Renderer {
-        
+		
+		public static final String FILE_RESTART="restart.png";
+
         public String name;
         public ArrayList<Entity> items=new ArrayList<Entity>();
         
@@ -42,6 +45,11 @@ public class Level implements ImmediateLayer.Renderer {
                 sceneLayer=graphics().createImmediateLayer((width+1)*32,(height+1)*32,this);
                 
                 layer.addAt(sceneLayer,(Game.SCREEN_WIDTH-(width+1)*32)/2,(Game.SCREEN_HEIGHT-(height+1)*32)/2);
+                
+                SurfaceLayer buttonsLayer=graphics().createSurfaceLayer(50,50);
+                buttonsLayer.surface().drawImage(Game.images.get(FILE_RESTART), 0, 0);
+                
+                layer.add(buttonsLayer);
         }
 
         

@@ -10,6 +10,7 @@ import playn.core.PlayN;
 import playn.game.core.Controls;
 import playn.game.core.Game;
 import playn.game.model.Entity;
+import playn.game.model.Level;
 import playn.game.model.LevelsContainer;
 import playn.java.JavaPlatform;
 
@@ -24,6 +25,7 @@ public class ResourceLoader implements ResourceChecker {
 			put(Entity.FILE_FLOOR, null);
 			put(Entity.FILE_PLAYER, null);
 			put(Entity.FILE_DONE, null);
+			put(Level.FILE_RESTART, null);
 		}
 	};
 	
