@@ -7,7 +7,7 @@ import playn.core.Surface;
 import playn.game.core.Game;
 
 
-public class Entity implements Comparable<Entity> {
+public class Entity implements Comparable<Entity>, Cloneable {
 	public int x;
 	public int y;
 	public int type;
@@ -103,20 +103,29 @@ public class Entity implements Comparable<Entity> {
 	// moving entity (called after all checks)
 	public void up(){
 		y--;
-		//System.out.println(resources.get(type)+" up");
 	}
 	public void down(){
 		y++;
-//		System.out.println(resources.get(type)+" down");
 	}
 	public void left(){
 		x--;
-//		System.out.println(resources.get(type)+" left");
 	}
 	public void right(){
 		x++;
-		//System.out.println(resources.get(type)+" right");
+	}
+	
+	
+	private int backup_x;
+	private int backup_y;
+	
+	public void backup(){
+		backup_x=x;
+		backup_y=y;
 	}
 
+	public void restore(){
+		x=backup_x;
+		y=backup_y;
+	}
 	
 }

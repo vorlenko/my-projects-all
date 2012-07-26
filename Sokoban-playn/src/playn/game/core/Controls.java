@@ -49,7 +49,7 @@ public class Controls implements Keyboard.Listener {
 		      right = false;
 		      break;
 	        case ENTER:
-	          System.out.println("restart");
+	          Game.level.restore();
 	          right = false;
 		      break;
 
