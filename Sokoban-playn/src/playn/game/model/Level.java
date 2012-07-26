@@ -5,11 +5,12 @@ import java.util.Collections;
 import java.util.Comparator;
 
 import playn.core.GroupLayer;
-import playn.core.SurfaceLayer;
+import playn.core.ImmediateLayer;
+import playn.core.Surface;
 import static playn.core.PlayN.graphics;
 
 
-public class Level {
+public class Level implements ImmediateLayer.Renderer {
         
         public String name;
         public ArrayList<Entity> items=new ArrayList<Entity>();
@@ -27,39 +28,36 @@ public class Level {
         
         public static GroupLayer layer;
         
-        public static SurfaceLayer background;
+        ImmediateLayer sceneLayer;
         
         public void init(){
                 layer=graphics().createGroupLayer();
                 
-                
                 calc();
                 
-                Collections.sort(items,new Comparator<Entity>(){
-					@Override
-					public int compare(Entity a, Entity b) {
-						return b.compareTo(a);
-					}});
 
-                background=graphics().createSurfaceLayer((width+1)*32, (height+1)*32);
-                
-                layer.addAt(background,(640-(width+1)*32)/2,(480-(height+1)*32)/2);
+                sceneLayer=graphics().createImmediateLayer((width+1)*32,(height+1)*32,this);
 
-                for(Entity entity:items){
-                	entity.paint(background);
-                }
+                //background=graphics().createSurfaceLayer((width+1)*32, (height+1)*32);
                 
-                
-                
+                layer.addAt(sceneLayer,(640-(width+1)*32)/2,(480-(height+1)*32)/2);
+
 
         }
+
+        Comparator<Entity> comparator=new Comparator<Entity>(){
+				@Override
+				public int compare(Entity a, Entity b) {
+					return b.compareTo(a);
+				}
+			};
         
-        private boolean entityExist(int x,int y,int type){
-        	boolean flag=false;
+        
+        public Entity entityExist(int x,int y,int type){
             for(Entity e:items){
-            	if((e.x==x)&&(e.y==y)&&(e.type==type)){flag=true;}
+            	if((e.x==x)&&(e.y==y)&&(e.type==type)){return e;}
             }
-        	return flag;
+        	return null;
         }
         
         
@@ -84,9 +82,9 @@ public class Level {
         	//calc floors
         	for(int x=0;x<width;x++)
             	for(int y=0;y<height;y++)
-            		if((!entityExist(x,y,Entity.TYPE_FLOOR))&&
-               		   (!entityExist(x,y,Entity.TYPE_WALL))&&
-               		   (!entityExist(x,y,Entity.TYPE_GOAL))
+            		if((entityExist(x,y,Entity.TYPE_FLOOR)==null)&&
+               		   (entityExist(x,y,Entity.TYPE_WALL)==null)&&
+               		   (entityExist(x,y,Entity.TYPE_GOAL)==null)
             		   ){
             			items.add(new Entity(x,y,Entity.TYPE_FLOOR));
             			
@@ -113,4 +111,84 @@ public class Level {
                 }
         	}
         }
+        
+        private Entity getPlayer(){
+        	
+            for(Entity e:items){
+            	if(e.type==Entity.TYPE_PLAYER){return e;}
+            }
+
+        	return null;
+        }
+
+		public void left() {
+			boolean flag=true;
+			Entity player=getPlayer();
+			if(entityExist(player.x-1,player.y,Entity.TYPE_WALL)==null){
+				Entity box=entityExist(player.x-1,player.y,Entity.TYPE_BOX);
+				if(box!=null){
+					if((entityExist(player.x-2,player.y,Entity.TYPE_WALL)==null)&&(entityExist(player.x-2,player.y,Entity.TYPE_BOX)==null)){
+						box.left();
+					} else flag=false;
+				}
+				if (flag) player.left();
+			}
+		}
+
+		public void up() {
+			boolean flag=true;
+			Entity player=getPlayer();
+			if(entityExist(player.x,player.y-1,Entity.TYPE_WALL)==null){
+				Entity box=entityExist(player.x,player.y-1,Entity.TYPE_BOX);
+				if(box!=null){
+					if((entityExist(player.x,player.y-2,Entity.TYPE_WALL)==null)&&(entityExist(player.x,player.y-2,Entity.TYPE_BOX)==null)){
+						box.up();
+					} else flag=false;
+				}
+				if (flag) player.up();
+			}
+		}
+
+		public void right() {
+			boolean flag=true;
+			Entity player=getPlayer();
+			if(entityExist(player.x+1,player.y,Entity.TYPE_WALL)==null){
+				Entity box=entityExist(player.x+1,player.y,Entity.TYPE_BOX);
+				if(box!=null){
+					if((entityExist(player.x+2,player.y,Entity.TYPE_WALL)==null)&&(entityExist(player.x+2,player.y,Entity.TYPE_BOX)==null)){
+						box.right();
+					} else flag=false;
+				}
+				if (flag) player.right();
+			}
+		}
+
+		public void down() {
+			boolean flag=true;
+			Entity player=getPlayer();
+			if(entityExist(player.x,player.y+1,Entity.TYPE_WALL)==null){
+				Entity box=entityExist(player.x,player.y+1,Entity.TYPE_BOX);
+				if(box!=null){
+					if((entityExist(player.x,player.y+2,Entity.TYPE_WALL)==null)&&(entityExist(player.x,player.y+2,Entity.TYPE_BOX)==null)){
+						box.down();
+					} else flag=false;
+				}
+				if (flag) player.down();
+			}
+		}
+
+		@Override
+		public void render(Surface surface) {
+			
+            Collections.sort(items,new Comparator<Entity>(){
+				@Override
+				public int compare(Entity a, Entity b) {
+					return b.compareTo(a);
+				}});
+
+			
+            for(Entity entity:items){
+            	entity.paint(surface);
+            }
+		}
 }

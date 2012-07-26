@@ -23,6 +23,7 @@ public class ResourceLoader implements ResourceChecker {
 			put(Entity.FILE_BOX, null);
 			put(Entity.FILE_FLOOR, null);
 			put(Entity.FILE_PLAYER, null);
+			put(Entity.FILE_DONE, null);
 		}
 	};
 	
