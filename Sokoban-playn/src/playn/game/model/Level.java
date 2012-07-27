@@ -13,14 +13,18 @@ import static playn.core.PlayN.graphics;
 
 
 public class Level implements ImmediateLayer.Renderer {
-		
+	
 		public static final String FILE_RESTART="restart.png";
 
         public String name;
+     
+        
         public ArrayList<Entity> items=new ArrayList<Entity>();
         
         private int width=0;
         private int height=0;
+        
+        
         
         Level(){
         }
@@ -38,13 +42,9 @@ public class Level implements ImmediateLayer.Renderer {
         	
                 layer=graphics().createGroupLayer();
                 
-                calc();
-                
-                backup();
-                
                 sceneLayer=graphics().createImmediateLayer((width+1)*32,(height+1)*32,this);
                 
-                layer.addAt(sceneLayer,(Game.SCREEN_WIDTH-(width+1)*32)/2,(Game.SCREEN_HEIGHT-(height+1)*32)/2);
+                layer.addAt(sceneLayer,(Game.SCREEN_WIDTH-(width+1)*32)/10*9,(Game.SCREEN_HEIGHT-(height+1)*32)/2);
                 
                 SurfaceLayer buttonsLayer=graphics().createSurfaceLayer(50,50);
                 buttonsLayer.surface().drawImage(Game.images.get(FILE_RESTART), 0, 0);
@@ -63,6 +63,7 @@ public class Level implements ImmediateLayer.Renderer {
         	for(Entity item:items){
         		item.restore();
         	}
+        	trace="";
 		}
         
         Comparator<Entity> comparator=new Comparator<Entity>(){
@@ -89,7 +90,7 @@ public class Level implements ImmediateLayer.Renderer {
             return entity;
         }
         
-        private void calc(){
+        public void calc(){
         	
         	// get width, height
             for(Entity entity:items){
@@ -141,7 +142,7 @@ public class Level implements ImmediateLayer.Renderer {
         	return null;
         }
 
-		public void left() {
+		public void left(boolean traceOn) {
 			boolean flag=true;
 			Entity player=getPlayer();
 			if(entityExist(player.x-1,player.y,Entity.TYPE_WALL)==null){
@@ -151,11 +152,14 @@ public class Level implements ImmediateLayer.Renderer {
 						box.left();
 					} else flag=false;
 				}
-				if (flag) player.left();
+				if (flag) {
+					player.left();
+					if(traceOn) trace+=TRACE_L;
+				}
 			}
 		}
 
-		public void up() {
+		public void up(boolean traceOn) {
 			boolean flag=true;
 			Entity player=getPlayer();
 			if(entityExist(player.x,player.y-1,Entity.TYPE_WALL)==null){
@@ -165,11 +169,14 @@ public class Level implements ImmediateLayer.Renderer {
 						box.up();
 					} else flag=false;
 				}
-				if (flag) player.up();
+				if (flag) {
+					player.up();
+					if(traceOn) trace+=TRACE_U;
+				}
 			}
 		}
 
-		public void right() {
+		public void right(boolean traceOn) {
 			boolean flag=true;
 			Entity player=getPlayer();
 			if(entityExist(player.x+1,player.y,Entity.TYPE_WALL)==null){
@@ -179,11 +186,14 @@ public class Level implements ImmediateLayer.Renderer {
 						box.right();
 					} else flag=false;
 				}
-				if (flag) player.right();
+				if (flag) {
+					player.right();
+					if(traceOn) trace+=TRACE_R;
+				}
 			}
 		}
 
-		public void down() {
+		public void down(boolean traceOn) {
 			boolean flag=true;
 			Entity player=getPlayer();
 			if(entityExist(player.x,player.y+1,Entity.TYPE_WALL)==null){
@@ -193,7 +203,10 @@ public class Level implements ImmediateLayer.Renderer {
 						box.down();
 					} else flag=false;
 				}
-				if (flag) player.down();
+				if (flag) {
+					player.down();
+					if(traceOn) trace+=TRACE_D;
+				}
 			}
 		}
 
@@ -210,5 +223,37 @@ public class Level implements ImmediateLayer.Renderer {
             for(Entity entity:items){
             	entity.paint(surface);
             }
+		}
+
+		public static final char TRACE_U=0x55;
+		public static final char TRACE_D=0x44;
+		public static final char TRACE_L=0x4C;
+		public static final char TRACE_R=0x52;
+
+		private String trace="";
+		
+		public String getTrace() {
+			return trace;
+		}
+
+		private void trace(){
+			char[] chars = trace.toCharArray();
+			for(char c:chars){
+				switch(c){
+				case TRACE_U: up(false); break;
+				case TRACE_D: down(false); break;
+				case TRACE_L: left(false); break;
+				case TRACE_R: right(false); break;
+				}
+			}
+		}
+		
+		public void back() {
+			String t=trace;
+			restore();
+			if(!t.equals("")){
+				trace=t.substring(0, t.length()-1);
+			}
+			trace();
 		}
 }

@@ -11,7 +11,7 @@ public class Loader {
 		JavaPlatform platform = JavaPlatform.register();
 	    platform.graphics().setSize(640, 480);
 	    platform.assets().setPathPrefix("playn/game/resources");
-
+	    
 	    new ResourceLoader(platform);
 	}
 }

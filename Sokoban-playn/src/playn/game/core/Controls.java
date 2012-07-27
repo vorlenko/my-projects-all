@@ -34,27 +34,41 @@ public class Controls implements Keyboard.Listener {
 	    switch (event.key()) {
 	      case LEFT:
 	          left = false;
-	          Game.level.left();
+	          Game.level.left(true);
 	          break;
 	        case UP:
-	          Game.level.up();
+	          Game.level.up(true);
 	          up = false;
 	          break;
 	        case RIGHT:
-	          Game.level.right();
+	          Game.level.right(true);
 	          right = false;
 	          break;
 	        case DOWN:
- 	          Game.level.down();
+ 	          Game.level.down(true);
 		      right = false;
 		      break;
 	        case ENTER:
 	          Game.level.restore();
 	          right = false;
 		      break;
-
+	        case A:
+		      Game.prevoiusLevel();
+		      right = false;
+			  break;
+	        case D:
+		      Game.nextLevel();
+		      right = false;
+			  break;
+	        case ESCAPE:
+		      Game.saveAndExit();
+		      right = false;
+			  break;
+	        case BACKSPACE:
+		      Game.back();
+		      right = false;
+			  break;
 	    }
-
 	}
 
 	public void onKeyTyped(TypedEvent event) {
