@@ -37,6 +37,7 @@ public class Game implements playn.core.Game {
 		for(Level level:levels){
 			level.calc();
 			level.backup();
+			
 		}
 		
 		String levelNumber=PlayN.storage().getItem(STORAGEKEY_N);

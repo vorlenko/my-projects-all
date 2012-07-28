@@ -68,6 +68,10 @@ public class Controls implements Keyboard.Listener {
 		      Game.back();
 		      right = false;
 			  break;
+	        case S:
+		      Game.level.resolve();
+		      right = false;
+			  break;
 	    }
 	}
 
