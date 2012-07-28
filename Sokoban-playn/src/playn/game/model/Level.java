@@ -17,14 +17,12 @@ public class Level implements ImmediateLayer.Renderer {
 		public static final String FILE_RESTART="restart.png";
 
         public String name;
-     
+        public String solution;
         
         public ArrayList<Entity> items=new ArrayList<Entity>();
         
         private int width=0;
         private int height=0;
-        
-        
         
         Level(){
         }
@@ -36,10 +34,9 @@ public class Level implements ImmediateLayer.Renderer {
         public static GroupLayer layer;
         
         ImmediateLayer sceneLayer;
-
         
         public void init(){
-        	
+       	
                 layer=graphics().createGroupLayer();
                 
                 sceneLayer=graphics().createImmediateLayer((width+1)*32,(height+1)*32,this);
@@ -47,6 +44,7 @@ public class Level implements ImmediateLayer.Renderer {
                 layer.addAt(sceneLayer,(Game.SCREEN_WIDTH-(width+1)*32)/10*9,(Game.SCREEN_HEIGHT-(height+1)*32)/2);
                 
                 SurfaceLayer buttonsLayer=graphics().createSurfaceLayer(50,50);
+
                 buttonsLayer.surface().drawImage(Game.images.get(FILE_RESTART), 0, 0);
                 
                 layer.add(buttonsLayer);
@@ -157,6 +155,7 @@ public class Level implements ImmediateLayer.Renderer {
 					if(traceOn) trace+=TRACE_L;
 				}
 			}
+			checkForResolved();
 		}
 
 		public void up(boolean traceOn) {
@@ -174,6 +173,7 @@ public class Level implements ImmediateLayer.Renderer {
 					if(traceOn) trace+=TRACE_U;
 				}
 			}
+			checkForResolved();
 		}
 
 		public void right(boolean traceOn) {
@@ -191,6 +191,7 @@ public class Level implements ImmediateLayer.Renderer {
 					if(traceOn) trace+=TRACE_R;
 				}
 			}
+			checkForResolved();
 		}
 
 		public void down(boolean traceOn) {
@@ -208,18 +209,16 @@ public class Level implements ImmediateLayer.Renderer {
 					if(traceOn) trace+=TRACE_D;
 				}
 			}
+			checkForResolved();
 		}
 
 		@Override
 		public void render(Surface surface) {
-			
             Collections.sort(items,new Comparator<Entity>(){
 				@Override
 				public int compare(Entity a, Entity b) {
 					return b.compareTo(a);
 				}});
-
-			
             for(Entity entity:items){
             	entity.paint(surface);
             }
@@ -255,5 +254,21 @@ public class Level implements ImmediateLayer.Renderer {
 				trace=t.substring(0, t.length()-1);
 			}
 			trace();
+		}
+
+		public void resolve() {
+			trace=solution;
+			back();
+			System.out.println(name+" resolved");
+		}
+		
+		public void checkForResolved() {
+			boolean resolved=true;
+			for(Entity item:items){
+				if((item.type==Entity.TYPE_GOAL)&&(entityExist(item.x,item.y,Entity.TYPE_BOX)==null)){
+					resolved=false;
+				}
+			}
+			System.out.println("resolved:"+resolved);
 		}
 }
