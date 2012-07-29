@@ -12,5 +12,6 @@
 			<attribute name="javadoc_location" value="jar:platform:/resource/Sokoban-playn/libs/gson-2.0-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="libs/playn-payments-server-1.1-SNAPSHOT.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
